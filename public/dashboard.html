@@ -11,7 +11,82 @@
     <header>
         <h1>TO-DO LIST & SCHEDULE</h1>
     </header>
-    <main>
+    <main>        
+        <h2>Leaderboard</h2>
+        <section id="leaderboardSection">
+            <section class="top-section">
+                <!-- Left Column: Leaderboard -->
+                <div class="leaderboard-container">
+            
+                    <!-- Top 3 Podium -->
+                    <div class="podium">
+                        <div class="podium-step third">
+                            <div class="rank">3rd</div>
+                            <h3 class="name">User B</h3>
+                            <div class="score">70 pts</div>
+                        </div>
+                        <div class="podium-step first">
+                            <div class="rank">1st</div>
+                            <h3 class="name">User C</h3>
+                            <div class="score">90 pts</div>
+                        </div>
+                        <div class="podium-step second">
+                            <div class="rank">2nd</div>
+                            <h3 class="name">User A</h3>
+                            <div class="score">80 pts</div>
+                        </div>
+                    </div>
+            
+                    <!-- Top 4-7 Leaderboard List -->
+                    <div class="leaderboard">
+                        <div class="leaderboard-item">
+                            <span class="leaderboard-rank">4.</span>
+                            <span class="leaderboard-user">User D</span>
+                            <span class="leaderboard-score">60 pts</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="leaderboard-rank">5.</span>
+                            <span class="leaderboard-user">User E</span>
+                            <span class="leaderboard-score">55 pts</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="leaderboard-rank">6.</span>
+                            <span class="leaderboard-user">User F</span>
+                            <span class="leaderboard-score">50 pts</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="leaderboard-rank">7.</span>
+                            <span class="leaderboard-user">User G</span>
+                            <span class="leaderboard-score">45 pts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-container">
+                    <!-- First Line: Username and Profile Picture -->
+                    <div class="profile-header">
+                      <img src="profile.jpeg" alt="Profile Picture">
+                      <span>User C</span>
+                    </div>
+                    
+                    <!-- Second Line: Streak -->
+                    <div class="streaks">
+                      <img src="streak.jpeg" alt="Streak Icon">
+                      <span>5</span>
+                    </div>
+                    
+                    <!-- Third Line: Badges -->
+                    <div class="badges">
+                      <div class="badge" data-tooltip="Badge A: Awarded for 100 tasks completed">A</div>
+                      <div class="badge" data-tooltip="Badge B: Consistent participation for 30 days">B</div>
+                      <div class="badge" data-tooltip="Badge C: Top scorer in the leaderboard">C</div>
+                    </div>
+                  </div>
+                  
+
+            </section>
+            
+        
         <section id="importTimetableSection">
             <h2>Import Timetable</h2>
             <form id="importTimetableForm">
