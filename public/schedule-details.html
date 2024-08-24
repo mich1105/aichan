@@ -20,13 +20,13 @@
         <button onclick="window.location.href='index.html'">Go Back</button>
     </main>
     <script>
-        // Get the URL parameters
+
         const urlParams = new URLSearchParams(window.location.search);
         const scheduleTitle = urlParams.get('title');
         const scheduleStart = urlParams.get('start');
         const scheduleEnd = urlParams.get('end');
 
-        // Populate the schedule details
+
         document.getElementById('scheduleTitle').textContent = scheduleTitle;
         document.getElementById('scheduleStart').textContent = scheduleStart;
         document.getElementById('scheduleEnd').textContent = scheduleEnd;

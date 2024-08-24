@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     let storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    // Ensure each task has an ID
+
     storedTasks = storedTasks.map(task => {
         if (!task.id) {
             task.id = 'task-' + Date.now() + Math.random().toString(36).substring(7);
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return task;
     });
 
-    localStorage.setItem('tasks', JSON.stringify(storedTasks)); // Save back to localStorage
+    localStorage.setItem('tasks', JSON.stringify(storedTasks)); 
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
         events: storedTasks.map(task => ({
-            id: task.id,  // Ensure the ID is passed correctly here
+            id: task.id,  
             title: task.name,
             start: task.start,
             end: task.end,

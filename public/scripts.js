@@ -1,53 +1,53 @@
-// Dummy Users and Connection Setup
+
 const dummyUsers = {
   "UserA": {
       username: "UserA",
       tasks: [
-          { id: "task-1", title: "Task 1", start: "2024-08-24T10:00:00", end: "2024-08-24T12:00:00" },
-          { id: "task-2", title: "Task 2", start: "2024-08-24T14:00:00", end: "2024-08-24T15:00:00" }
+          { id: "task-1", title: "Task 1", start: "2024-08-31T10:00:00", end: "2024-08-31T12:00:00" },
+          { id: "task-2", title: "Task 2", start: "2024-08-31T14:00:00", end: "2024-08-31T15:00:00" }
       ],
       connections: []
   },
   "UserB": {
       username: "UserB",
       tasks: [
-          { id: "task-3", title: "Task 3", start: "2024-08-24T09:00:00", end: "2024-08-24T10:30:00" },
-          { id: "task-4", title: "Task 4", start: "2024-08-24T13:00:00", end: "2024-08-24T14:00:00" }
+          { id: "task-3", title: "Task 3", start: "2024-08-31T09:00:00", end: "2024-08-31T10:30:00" },
+          { id: "task-4", title: "Task 4", start: "2024-08-31T13:00:00", end: "2024-08-31T14:00:00" }
       ],
       connections: []
   },
   "UserC": {
       username: "UserC",
       tasks: [
-          { id: "task-5", title: "Task 5", start: "2024-08-23T09:00:00", end: "2024-08-23T10:30:00" },
-          { id: "task-6", title: "Task 6", start: "2024-08-23T13:00:00", end: "2024-08-23T14:00:00" }
+          { id: "task-5", title: "Task 5", start: "2024-08-30T09:00:00", end: "2024-08-30T10:30:00" },
+          { id: "task-6", title: "Task 6", start: "2024-08-30T13:00:00", end: "2024-08-30T14:00:00" }
       ],
       connections: []
   },
   "UserD": {
       username: "UserD",
       tasks: [
-          { id: "task-7", title: "Task 7", start: "2024-08-23T07:00:00", end: "2024-08-23T09:30:00" },
-          { id: "task-8", title: "Task 8", start: "2024-08-23T11:00:00", end: "2024-08-23T11:30:00" }
+          { id: "task-7", title: "Task 7", start: "2024-08-23T07:00:00", end: "2024-08-30T09:30:00" },
+          { id: "task-8", title: "Task 8", start: "2024-08-23T11:00:00", end: "2024-08-30T11:30:00" }
       ],
       connections: []
   }
 };
 
-// Store the dummy users in localStorage
+
 localStorage.setItem('allUsers', JSON.stringify(dummyUsers));
 
-// Set the current user to UserA for the demo
+
 localStorage.setItem('currentUser', JSON.stringify(dummyUsers['UserA']));
 
-let calendar; // Declare the calendar variable outside the function so it can be accessed globally
+let calendar; 
 
-// Function to initialize the calendar with tasks from UserA or other users
+
 function initializeCalendar() {
     const calendarEl = document.getElementById('calendar');
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    // Ensure each task has a unique ID
+
     tasks = tasks.map(task => {
         if (!task.id) {
             task.id = 'task-' + Date.now() + Math.random().toString(36).substring(7);
@@ -55,13 +55,12 @@ function initializeCalendar() {
         return task;
     });
 
-    localStorage.setItem('tasks', JSON.stringify(tasks)); // Save back to localStorage
+    localStorage.setItem('tasks', JSON.stringify(tasks)); 
 
     if (calendar) {
         calendar.destroy();
     }
 
-    // Initialize the calendar with tasks
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
         headerToolbar: {
@@ -71,7 +70,7 @@ function initializeCalendar() {
         },
         events: tasks.map(task => ({
             id: task.id,
-            title: task.name || task.title, // Support for both `name` and `title`
+            title: task.name || task.title, 
             start: task.start,
             end: task.end,
             allDay: false
@@ -83,13 +82,9 @@ function initializeCalendar() {
 
     calendar.render();
 
-    // Re-attach the Unconnect button event listener after calendar is initialized
-    document.getElementById('unconnectButton').addEventListener('click', unconnectUser);
+    document.getElementById('disconnectButton').addEventListener('click', disconnectUser);
 }
 
-
-
-// Function to handle connecting to another user
 function connectToUser() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const allUsers = JSON.parse(localStorage.getItem('allUsers'));
@@ -101,7 +96,6 @@ function connectToUser() {
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
       localStorage.setItem('allUsers', JSON.stringify(allUsers));
 
-      // Re-initialize the calendar to include the connected user's tasks
       const freeTimes = findCommonFreeTime();
       displayFreeTimes(freeTimes);
 
@@ -111,7 +105,6 @@ function connectToUser() {
   }
 }
 
-// Function to find common free time between connected users
 function findCommonFreeTime() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const connections = currentUser.connections || [];
@@ -119,7 +112,6 @@ function findCommonFreeTime() {
 
   let combinedTasks = JSON.parse(localStorage.getItem('tasks')) || currentUser.tasks || [];
 
-  // Add the tasks of connected users
   connections.forEach(connection => {
       const userTasks = allUsers[connection].tasks || [];
       combinedTasks = combinedTasks.concat(userTasks);
@@ -129,6 +121,28 @@ function findCommonFreeTime() {
 
   const freeTimes = calculateFreeTime(combinedTasks);
   return freeTimes;
+}
+
+function findCommonFreeTimeInRange(start, end, preference) {
+    const freeTimes = findCommonFreeTime();
+
+    return freeTimes.filter(time => {
+        const startTime = new Date(time.start);
+        const endTime = new Date(time.end);
+
+        switch (preference) {
+            case 'morning':
+                return startTime.getHours() >= 5 && endTime.getHours() <= 11;
+            case 'day':
+                return startTime.getHours() >= 11 && endTime.getHours() <= 15;
+            case 'afternoon':
+                return startTime.getHours() >= 15 && endTime.getHours() <= 18;
+            case 'night':
+                return startTime.getHours() >= 18 && endTime.getHours() <= 23;
+            default:
+                return true;
+        }
+    }).filter(time => new Date(time.start) >= start && new Date(time.end) <= end);
 }
 
 function calculateFreeTime(tasks) {
@@ -162,14 +176,6 @@ function displayFreeTimes(freeTimes) {
           right: 'timeGridDay,timeGridWeek,listWeek'
       },
       events: [
-          /*...freeTimes.map(freeTime => ({
-              title: 'Free Time',
-              start: freeTime.start,
-              end: freeTime.end,
-              backgroundColor: '#00ff00',
-              borderColor: '#00ff00',
-              rendering: 'background'
-          })),*/
           ...tasks,
           ...connectedUserTasks
       ]
@@ -192,9 +198,8 @@ function getConnectedUserTasks() {
   return connectedUserTasks;
 }
 
-// Function to add a task
 function addTask(event) {
-  event.preventDefault();  // Prevent form from submitting and redirecting
+  event.preventDefault();  
 
   const taskInput = document.getElementById('taskInput');
   const taskDeadline = document.getElementById('taskDeadline');
@@ -208,65 +213,30 @@ function addTask(event) {
       return;
   }
 
-  // Calculate end time
   const startDateTime = new Date(deadlineValue);
   const endDateTime = new Date(startDateTime.getTime() + durationValue * 60 * 60 * 1000);
 
-  // Generate a unique ID for the task
   const taskId = 'task-' + Date.now();
 
-  // Save task to localStorage
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   tasks.push({ id: taskId, name: taskValue, start: deadlineValue, end: endDateTime.toISOString() });
   localStorage.setItem('tasks', JSON.stringify(tasks));
 
-  // Re-render tasks and update calendar
   initializeCalendar();
 }
 
-// Function to add a schedule
-function addSchedule(event) {
-  event.preventDefault();
 
-  const scheduleTitle = document.getElementById('scheduleTitle').value;
-  const scheduleStart = document.getElementById('scheduleStart').value;
-  const scheduleEnd = document.getElementById('scheduleEnd').value;
 
-  if (scheduleTitle.trim() === '' || scheduleStart.trim() === '' || scheduleEnd.trim() === '') {
-      return;
-  }
 
-  // Save schedule to localStorage
-  let schedules = JSON.parse(localStorage.getItem('schedules')) || [];
-  schedules.push({ title: scheduleTitle, start: scheduleStart, end: scheduleEnd });
-  localStorage.setItem('schedules', JSON.stringify(schedules));
 
-  // Render schedules and update calendar
-  renderSchedules();
-  initializeCalendar();
-}
 
-// Function to render schedules
-function renderSchedules() {
-  const suggestedSchedulesList = document.getElementById('suggestedSchedulesList');
-  const schedules = JSON.parse(localStorage.getItem('schedules')) || [];
-
-  suggestedSchedulesList.innerHTML = ''; // Clear the current list
-
-  schedules.forEach(schedule => {
-      const listItem = document.createElement('li');
-      listItem.textContent = `${schedule.title} (From: ${new Date(schedule.start).toLocaleString()} To: ${new Date(schedule.end).toLocaleString()})`;
-      suggestedSchedulesList.appendChild(listItem);
-  });
-}
 
 let currentEventId = null;
 
 function showTaskDetails(event) {
-    // Store the current event ID for deletion
+
     currentEventId = event.id;
 
-    // Populate modal with event details
     document.getElementById('modalTaskName').textContent = event.title;
     document.getElementById('modalTaskStart').textContent = new Date(event.start).toLocaleString();
     document.getElementById('modalTaskEnd').textContent = new Date(event.end).toLocaleString();
@@ -274,65 +244,54 @@ function showTaskDetails(event) {
     const durationInHours = (new Date(event.end) - new Date(event.start)) / (1000 * 60 * 60);
     document.getElementById('modalTaskDuration').textContent = durationInHours.toFixed(2);
 
-    // Show the modal
     document.getElementById('taskDetailsModal').style.display = "block";
 }
 
 function closeModal() {
-  // Hide the modal
   document.getElementById('taskDetailsModal').style.display = "none";
 }
 
-// Close the modal when clicking outside of it
 window.onclick = function(event) {
   if (event.target == document.getElementById('taskDetailsModal')) {
       closeModal();
   }
 }
 
-// Close the modal when clicking on the close button
 document.getElementById('closeModal').onclick = function() {
   closeModal();
 }
 
-// Delete the task when the delete button is clicked
 document.getElementById('deleteTaskButton').onclick = function() {
   deleteTaskFromModal();
 }
 
 function deleteTaskFromModal() {
-  // Get the tasks from localStorage
+
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  // Find and remove the task with the currentEventId
   tasks = tasks.filter(task => task.id !== currentEventId);
 
-  // Update localStorage
   localStorage.setItem('tasks', JSON.stringify(tasks));
 
-  // Re-render the calendar
   initializeCalendar();
 
-  // Close the modal
   closeModal();
 }
 
-function unconnectUser() {
+function disconnectUser() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const allUsers = JSON.parse(localStorage.getItem('allUsers'));
     const connectUsername = document.getElementById('connectUsername').value.trim();
 
     if (connectUsername && currentUser.connections.includes(connectUsername)) {
-        // Remove the user from the connections list
+
         currentUser.connections = currentUser.connections.filter(username => username !== connectUsername);
         allUsers[currentUser.username].connections = allUsers[currentUser.username].connections.filter(username => username !== connectUsername);
         
-        // Update localStorage
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
         localStorage.setItem('allUsers', JSON.stringify(allUsers));
 
-        // Re-initialize the calendar to remove the disconnected user's tasks
-        initializeCalendar(); // Re-initialize to only show current user's tasks
+        initializeCalendar(); 
 
         alert(`Disconnected from ${connectUsername}. Their schedule is now hidden.`);
     } else {
@@ -340,7 +299,6 @@ function unconnectUser() {
     }
 }
 
-// Function to import timetable
 async function importTimetable(event) {
   event.preventDefault();
 
@@ -359,23 +317,19 @@ async function importTimetable(event) {
           throw new Error(`Server error: ${response.status} ${response.statusText}`);
       }
 
-      const events = await response.json(); // Ensure this is JSON and properly structured
+      const events = await response.json(); 
 
       if (!Array.isArray(events)) {
           throw new Error('Invalid response format: Expected an array of events.');
       }
 
-      // Store the events in localStorage
       let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-      tasks = tasks.concat(events); // Merge events with existing tasks
+      tasks = tasks.concat(events); 
 
-      // Check the combined result
       console.log('Tasks after merging:', tasks);
 
       localStorage.setItem('tasks', JSON.stringify(tasks));
 
-
-      // Initialize calendar with the imported events
       initializeCalendar();
 
       alert('Timetable imported successfully!');
@@ -385,24 +339,20 @@ async function importTimetable(event) {
   }
 }
 
-
-// Initialize UserA's calendar and other elements on page load
 document.addEventListener('DOMContentLoaded', () => {
-  initializeCalendar(); // Show UserA's schedule only
+  initializeCalendar(); 
 
   document.getElementById('taskForm').addEventListener('submit', addTask);
-  document.getElementById('addScheduleButton').addEventListener('click', addSchedule);
   document.getElementById('importTimetableForm').addEventListener('submit', importTimetable);
 
-  // Set up the connection functionality
+
   document.getElementById('connectUserForm').addEventListener('submit', function(event) {
       event.preventDefault();
       connectToUser();
   });
 
-  document.getElementById('unconnectButton').addEventListener('click', unconnectUser);
+  document.getElementById('disconnectButton').addEventListener('click', disconnectUser);
 
-  // Dropdown functionality (if applicable)
   const dropdownButton = document.querySelector('.dropdown-button');
   const dropdownContent = document.querySelector('.dropdown-content');
   dropdownButton.addEventListener('click', function() {
@@ -415,4 +365,132 @@ document.addEventListener('DOMContentLoaded', () => {
           }
       }
   });
+});
+
+document.getElementById('createActivityForm').addEventListener('submit', createActivityTogether);
+function createActivityTogether(event) {
+    event.preventDefault();
+
+    const activityTitle = document.getElementById('activityTitle').value;
+    const activityStart = new Date(document.getElementById('activityStart').value);
+    const activityEnd = new Date(document.getElementById('activityEnd').value);
+    const activityDuration = parseFloat(document.getElementById('activityDuration').value);
+    const selectedUsers = Array.from(document.getElementById('activityUsers').selectedOptions).map(option => option.value);
+    const timePreference = document.getElementById('timePreference').value;
+
+    if (activityTitle.trim() === '' || isNaN(activityDuration) || selectedUsers.length === 0) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    const availableSlots = findCommonFreeTimeInRange(activityStart, activityEnd, timePreference);
+
+    const suggestedSchedulesList = document.getElementById('suggestedSchedulesList');
+    suggestedSchedulesList.innerHTML = ''; // Clear previous suggestions
+
+    if (availableSlots.length === 0) {
+        suggestedSchedulesList.innerHTML = '<li>No common free time available within the selected period and time preference.</li>';
+    } else {
+
+        availableSlots.slice(0, 4).forEach((slot, index) => {
+            const slotDuration = (new Date(slot.end) - new Date(slot.start)) / (1000 * 60 * 60);
+            if (slotDuration >= activityDuration) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Option : ${new Date(slot.start).toLocaleString()}`;
+                
+
+                const addButton = document.createElement('button');
+                addButton.textContent = 'Add to Timetable';
+                addButton.onclick = function() {
+                    addSuggestedActivityToCalendar({
+                        start: slot.start,
+                        end: new Date(new Date(slot.start).getTime() + activityDuration * 60 * 60 * 1000).toISOString()
+                    }, activityTitle, selectedUsers);
+                };
+                listItem.appendChild(addButton);
+
+                suggestedSchedulesList.appendChild(listItem);
+            }
+        });
+    }
+}
+
+function findFreeTimeSlotsForUsers(start, end, duration, users, timePreference) {
+    const allUsers = JSON.parse(localStorage.getItem('allUsers')) || {};
+    let combinedTasks = [];
+
+    users.forEach(user => {
+        const userTasks = allUsers[user].tasks || [];
+        combinedTasks = combinedTasks.concat(userTasks);
+    });
+
+    combinedTasks.sort((a, b) => new Date(a.start) - new Date(b.start));
+
+    let freeTimes = [];
+    let previousEnd = start;
+
+    combinedTasks.forEach(task => {
+        const taskStart = new Date(task.start);
+        if (previousEnd < taskStart) {
+            let availableDuration = (taskStart - previousEnd) / (1000 * 60 * 60); // in hours
+            if (availableDuration >= duration) {
+                let slotEnd = new Date(previousEnd.getTime() + duration * 60 * 60 * 1000);
+                freeTimes.push({ start: previousEnd.toISOString(), end: slotEnd.toISOString() });
+            }
+        }
+        previousEnd = new Date(task.end);
+    });
+
+    if (previousEnd < end) {
+        let availableDuration = (end - previousEnd) / (1000 * 60 * 60); // in hours
+        if (availableDuration >= duration) {
+            let slotEnd = new Date(previousEnd.getTime() + duration * 60 * 60 * 1000);
+            freeTimes.push({ start: previousEnd.toISOString(), end: slotEnd.toISOString() });
+        }
+    }
+
+    const filteredFreeTimes = freeTimes.filter(slot => {
+        const slotStart = new Date(slot.start).getHours();
+        switch (timePreference) {
+            case 'morning':
+                return slotStart >= 6 && slotStart < 12;
+            case 'day':
+                return slotStart >= 12 && slotStart < 18;
+            case 'evening':
+                return slotStart >= 18 && slotStart < 21;
+            case 'night':
+                return slotStart >= 21 && slotStart < 24;
+            default:
+                return false;
+        }
+    });
+
+    return filteredFreeTimes.slice(0, 4);
+}
+
+function addSuggestedActivityToCalendar(freeSlot, title, users) {
+
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    
+    tasks.push({
+        id: 'task-' + Date.now(),
+        title: title,
+        start: freeSlot.start,
+        end: freeSlot.end,
+        allDay: false
+    });
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    initializeCalendar();
+}
+
+freeTimeSlots.forEach(slot => {
+    calendar.addEvent({
+        title: `${title} (Suggested)`,
+        start: slot.start,
+        end: slot.end,
+        backgroundColor: '#ff6600',
+        borderColor: '#ff6600'
+    });
 });

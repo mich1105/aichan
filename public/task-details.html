@@ -20,13 +20,13 @@
         <button onclick="window.location.href='index.html'">Go Back</button>
     </main>
     <script>
-        // Get the URL parameters
+
         const urlParams = new URLSearchParams(window.location.search);
         const taskName = urlParams.get('taskName');
         const taskDeadline = urlParams.get('taskDeadline');
         const taskDuration = urlParams.get('taskDuration');
     
-        // Store the task in localStorage
+
         const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         tasks.push({
             name: taskName,
@@ -35,7 +35,7 @@
         });
         localStorage.setItem('tasks', JSON.stringify(tasks));
     
-        // Populate the task details
+
         document.getElementById('taskName').textContent = taskName;
         document.getElementById('taskDeadline').textContent = taskDeadline;
         document.getElementById('taskDuration').textContent = taskDuration;
