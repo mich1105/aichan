@@ -163,25 +163,45 @@
     <div id="taskDetailsModal" class="modal">
         <div class="modal-content">
             <span id="closeModal" class="close">&times;</span>
-            <h2>Task Details</h2>
-            <p><strong>Name:</strong> <span id="modalTaskName"></span></p>
-            <p><strong>Start:</strong> <span id="modalTaskStart"></span></p>
-            <p><strong>End:</strong> <span id="modalTaskEnd"></span></p>
-            <p><strong>Duration:</strong> <span id="modalTaskDuration"></span> hours</p>
-            
-            <!-- Container for profile photos -->
+    
+            <!-- Flex container for task details and upload section -->
+            <div class="modal-body">
+                <div class="task-info">
+                    <h2>Task Details</h2>
+                    <p><strong>Name:</strong> <span id="modalTaskName"></span></p>
+                    <p><strong>Start:</strong> <span id="modalTaskStart"></span></p>
+                    <p><strong>End:</strong> <span id="modalTaskEnd"></span></p>
+                    <p><strong>Duration:</strong> <span id="modalTaskDuration"></span> hours</p>
+                </div>
+    
+                <!-- Image Upload for joint activity tasks (Positioned to the right side) -->
+                <div id="uploadPhotoSection" class="upload-photo-section">
+                    <label for="uploadPhotoInput">Upload Photo:</label>
+                    <input type="file" id="uploadPhotoInput" accept="image/*">
+                    <div class="image-preview-container" style="position: relative;">
+                        <img id="uploadedPhotoPreview" src="" alt="Uploaded Photo" style="display: none; margin-top: 10px; max-width: 100%;">
+                        <button id="discardPhotoButton" class="discard-photo-btn" style="display: none;">X</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Container for profile photos (You can position this elsewhere as needed) -->
             <div id="profilePhotos" class="profile-container"></div>
     
-            <!-- New Complete checkbox -->
+            <!-- Complete checkbox and Delete Task button -->
             <div class="complete-checklist">
                 <label for="completeCheckbox">Complete</label>
                 <input type="checkbox" id="completeCheckbox">
             </div>
-    
-            <!-- Delete Task button -->
             <button id="deleteTaskButton" class="delete-task-btn">Delete Task</button>
         </div>
     </div>
+    
+    
+    
+    
+    
+    
     
     
        

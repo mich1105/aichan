@@ -155,6 +155,28 @@ button:hover {
   cursor: pointer;
 }
 
+.discard-photo-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.discard-photo-btn:hover {
+  background-color: darkred;
+}
+
+
 /* Complete checkbox */
 .complete-checklist {
   position: absolute;
@@ -195,6 +217,55 @@ button:hover {
     text-decoration: none;
     cursor: pointer;
 }
+
+.modal-body {
+  display: flex;
+  justify-content: space-between; /* Space between task details and upload section */
+  align-items: flex-start; /* Align items to the top */
+  position: relative; /* Ensure the upload section can be positioned absolutely within this container */
+}
+
+.upload-photo-section {
+  position: absolute; /* Position it independently */
+  top: 30px; /* Move it down by 30px from the top of the container */
+  right: 0; /* Align it to the right */
+  left: 300px;
+  width: 220px; /* Maintain original width for the upload section */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.upload-photo-section label {
+  font-weight: bold;
+  margin-bottom: 10px; /* Space between label and input */
+  font-size: 1em; /* Keep the label text size normal */
+  position: relative;
+  left: 0px; /* Keep the label aligned with the input */
+}
+
+#uploadPhotoInput {
+  width: 100%; /* Ensure the input fits within the section */
+  font-size: 1em; /* Keep the input text size normal */
+}
+
+#uploadedPhotoPreview {
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  margin-top: 10px; /* Space between input and image */
+  max-width: 300px; /* Scale the width by 80% of the original (120px * 1.8 = 216px) */
+  max-height: 300px; /* Scale the height by 80% */
+}
+
+.profile-container {
+  display: flex;
+  gap: 10px;
+  position: relative; /* Ensure the profile pictures are positioned relative to their container */
+}
+
+
+
+
 
 
 #calendarSection {

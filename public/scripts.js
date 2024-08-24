@@ -250,22 +250,85 @@ function showTaskDetails(event) {
     profileContainer.innerHTML = ''; // Clear any existing content
 
     if (task.isJointActivity) {
-        // List of profile image file names (Only 3 images)
         const profileImages = ['profile0.png', 'profile1.png', 'profile2.png'];
 
-        // Loop through the profile images and append them to the profile container
         profileImages.forEach((image, index) => {
             const img = document.createElement('img');
-            img.src = `images/${image}`; // Path to the profile image
+            img.src = `images/${image}`;
             img.alt = `Profile Photo ${index}`;
-            img.className = 'profile-photo'; // Optional class for styling
+            img.className = 'profile-photo';
             profileContainer.appendChild(img);
         });
+
+        // Show the upload photo section
+        document.getElementById('uploadPhotoSection').style.display = 'block';
+
+        // Load and display the previously uploaded photo if it exists
+        if (task.uploadedPhoto) {
+            document.getElementById('uploadedPhotoPreview').src = task.uploadedPhoto;
+            document.getElementById('uploadedPhotoPreview').style.display = 'block';
+        } else {
+            document.getElementById('uploadedPhotoPreview').style.display = 'none';
+        }
+
+        // Handle photo upload
+        document.getElementById('uploadPhotoInput').onchange = function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Show the uploaded photo
+                document.getElementById('uploadedPhotoPreview').src = e.target.result;
+                document.getElementById('uploadedPhotoPreview').style.display = 'block';
+
+                // Save the photo in the task object and localStorage
+                task.uploadedPhoto = e.target.result;
+                saveTask(task);
+            };
+            reader.readAsDataURL(file);
+        };
+    } else {
+        // Hide the upload photo section if it's not a joint activity
+        document.getElementById('uploadPhotoSection').style.display = 'none';
     }
 
     // Show the modal
     document.getElementById('taskDetailsModal').style.display = "block";
 }
+
+function findTaskById(id) {
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    return tasks.find(task => task.id === id);
+}
+
+function saveTask(updatedTask) {
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    tasks = tasks.map(task => task.id === updatedTask.id ? updatedTask : task);
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+document.getElementById('uploadPhotoInput').onchange = function(event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        // Show the uploaded photo
+        document.getElementById('uploadedPhotoPreview').src = e.target.result;
+        document.getElementById('uploadedPhotoPreview').style.display = 'block';
+        
+        // Show the discard button
+        document.getElementById('discardPhotoButton').style.display = 'flex';
+    };
+    reader.readAsDataURL(file);
+};
+
+document.getElementById('discardPhotoButton').onclick = function() {
+    // Clear the file input
+    document.getElementById('uploadPhotoInput').value = '';
+    
+    // Hide the uploaded photo and discard button
+    document.getElementById('uploadedPhotoPreview').style.display = 'none';
+    document.getElementById('discardPhotoButton').style.display = 'none';
+};
+
 
 
 
