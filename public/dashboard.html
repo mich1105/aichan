@@ -96,17 +96,17 @@
                 <input type="url" id="timetableUrl" name="timetableUrl" placeholder="Enter timetable URL" required>
                 <button id="importTimetableButton" type="submit">Import Timetable</button>
             </form>
-            <br>
-        </section>               
+        </section>
+                         
         <section id="taskSection">
             <h2>Add New Task</h2>
-            <form id="taskForm" action="task-details.html" method="get">
-                <input type="text" id="taskInput" name="taskName" placeholder="Enter task name">
-                <input type="datetime-local" id="taskDeadline" name="taskDeadline" placeholder="Enter deadline">
-                <input type="number" id="taskDuration" name="taskDuration" placeholder="Duration (hours)" min="0">
+            <form id="taskForm">
+                <input type="text" id="taskInput" name="taskName" placeholder="Enter task name" required>
+                <input type="datetime-local" id="taskDeadline" name="taskDeadline" placeholder="Enter deadline" required>
+                <input type="number" id="taskDuration" name="taskDuration" placeholder="Duration (hours)" min="1" required>
                 <button id="addTaskButton" type="submit">Add Task</button>
             </form>
-        </section>
+        </section>        
         <!-- <section id="taskListSection">
             <h2>Task List</h2>
             <ul id="taskList"></ul>

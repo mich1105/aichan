@@ -432,32 +432,53 @@ async function importTimetable(event) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initializeCalendar(); 
+    initializeCalendar(); 
 
-  document.getElementById('taskForm').addEventListener('submit', addTask);
-  document.getElementById('importTimetableForm').addEventListener('submit', importTimetable);
+    document.getElementById('taskForm').addEventListener('submit', addTask);
+    document.getElementById('importTimetableForm').addEventListener('submit', importTimetable);
 
+    document.getElementById('connectUserForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        connectToUser();
+    });
 
-  document.getElementById('connectUserForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      connectToUser();
-  });
+    document.getElementById('disconnectButton').addEventListener('click', disconnectUser);
 
-  document.getElementById('disconnectButton').addEventListener('click', disconnectUser);
+    document.getElementById('createActivityForm').addEventListener('submit', createActivityTogether);
 
-  const dropdownButton = document.querySelector('.dropdown-button');
-  const dropdownContent = document.querySelector('.dropdown-content');
-  dropdownButton.addEventListener('click', function() {
-      dropdownContent.classList.toggle('show');
-  });
-  window.addEventListener('click', function(event) {
-      if (!event.target.matches('.dropdown-button')) {
-          if (dropdownContent.classList.contains('show')) {
-              dropdownContent.classList.remove('show');
-          }
-      }
-  });
+    // Close modal listener
+    document.getElementById('closeModal').onclick = function() {
+        closeModal();
+    }
+
+    // Delete task listener
+    document.getElementById('deleteTaskButton').onclick = function() {
+        deleteTaskFromModal();
+    }
+
+    // Event listener for file upload
+    document.getElementById('uploadPhotoInput').onchange = function(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            // Show the uploaded photo
+            document.getElementById('uploadedPhotoPreview').src = e.target.result;
+            document.getElementById('uploadedPhotoPreview').style.display = 'block';
+            
+            // Show the discard button
+            document.getElementById('discardPhotoButton').style.display = 'flex';
+        };
+        reader.readAsDataURL(file);
+    };
+
+    // Discard photo listener
+    document.getElementById('discardPhotoButton').onclick = function() {
+        document.getElementById('uploadPhotoInput').value = '';
+        document.getElementById('uploadedPhotoPreview').style.display = 'none';
+        document.getElementById('discardPhotoButton').style.display = 'none';
+    };
 });
+
 
 document.getElementById('createActivityForm').addEventListener('submit', createActivityTogether);
 function createActivityTogether(event) {

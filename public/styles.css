@@ -117,7 +117,7 @@ button:hover {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1000; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -267,10 +267,10 @@ button:hover {
   position: relative; /* Ensure the profile pictures are positioned relative to their container */
 }
 
-
-
-
-
+#importTimetableForm, #taskForm {
+  z-index: 1000; /* Ensure it's on top */
+  position: relative; /* Ensure it follows the z-index */
+}
 
 #calendarSection {
   background-color: #efe8dd3d;
