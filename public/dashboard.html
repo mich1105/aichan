@@ -87,15 +87,29 @@
 
     <div id="taskDetailsModal" class="modal">
         <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
+            <span id="closeModal" class="close">&times;</span>
             <h2>Task Details</h2>
             <p><strong>Name:</strong> <span id="modalTaskName"></span></p>
             <p><strong>Start:</strong> <span id="modalTaskStart"></span></p>
             <p><strong>End:</strong> <span id="modalTaskEnd"></span></p>
             <p><strong>Duration:</strong> <span id="modalTaskDuration"></span> hours</p>
-            <button id="deleteTaskButton">Delete Task</button>
+            
+            <!-- Container for profile photos -->
+            <div id="profilePhotos" class="profile-container"></div>
+    
+            <!-- New Complete checkbox -->
+            <div class="complete-checklist">
+                <label for="completeCheckbox">Complete</label>
+                <input type="checkbox" id="completeCheckbox">
+            </div>
+    
+            <!-- Delete Task button -->
+            <button id="deleteTaskButton" class="delete-task-btn">Delete Task</button>
         </div>
     </div>
+    
+    
+       
     
     <div class="character1">
         <img src="character1.png" alt="Fixed PNG">

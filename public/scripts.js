@@ -233,9 +233,10 @@ function addTask(event) {
 let currentEventId = null;
 
 function showTaskDetails(event) {
-
+    // Store the current event ID for deletion
     currentEventId = event.id;
 
+    // Populate modal with event details
     document.getElementById('modalTaskName').textContent = event.title;
     document.getElementById('modalTaskStart').textContent = new Date(event.start).toLocaleString();
     document.getElementById('modalTaskEnd').textContent = new Date(event.end).toLocaleString();
@@ -243,8 +244,37 @@ function showTaskDetails(event) {
     const durationInHours = (new Date(event.end) - new Date(event.start)) / (1000 * 60 * 60);
     document.getElementById('modalTaskDuration').textContent = durationInHours.toFixed(2);
 
+    // Check if the task is a joint activity and add profile photos if true
+    const task = findTaskById(event.id); // Helper function to find the task by ID
+    const profileContainer = document.getElementById('profilePhotos');
+    profileContainer.innerHTML = ''; // Clear any existing content
+
+    if (task.isJointActivity) {
+        // List of profile image file names (Only 3 images)
+        const profileImages = ['profile0.png', 'profile1.png', 'profile2.png'];
+
+        // Loop through the profile images and append them to the profile container
+        profileImages.forEach((image, index) => {
+            const img = document.createElement('img');
+            img.src = `images/${image}`; // Path to the profile image
+            img.alt = `Profile Photo ${index}`;
+            img.className = 'profile-photo'; // Optional class for styling
+            profileContainer.appendChild(img);
+        });
+    }
+
+    // Show the modal
     document.getElementById('taskDetailsModal').style.display = "block";
 }
+
+
+
+
+function findTaskById(id) {
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    return tasks.find(task => task.id === id);
+}
+
 
 function closeModal() {
   document.getElementById('taskDetailsModal').style.display = "none";
@@ -467,21 +497,27 @@ function findFreeTimeSlotsForUsers(start, end, duration, users, timePreference) 
 }
 
 function addSuggestedActivityToCalendar(freeSlot, title, users) {
-
+    // Retrieve the existing tasks from localStorage
     let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     
+    // Add the new event to the tasks array with the isJointActivity flag
     tasks.push({
         id: 'task-' + Date.now(),
         title: title,
         start: freeSlot.start,
         end: freeSlot.end,
-        allDay: false
+        allDay: false,
+        isJointActivity: true, // Flag indicating a joint activity
+        participants: users     // Store the list of users
     });
 
+    // Save the updated tasks back to localStorage
     localStorage.setItem('tasks', JSON.stringify(tasks));
 
+    // Re-render the calendar with the new and existing events
     initializeCalendar();
 }
+
 
 freeTimeSlots.forEach(slot => {
     calendar.addEvent({

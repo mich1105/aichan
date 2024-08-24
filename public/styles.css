@@ -109,43 +109,93 @@ button:hover {
   cursor: pointer;
 }
 
+/* Modal container */
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+/* Modal content */
+/* Modal content */
+/* Modal content */
+/* Position the modal content and elements */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
-  max-width: 500px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  border-radius: 10px;
+  width: 45%;
+  max-width: 680px;
+  height: 55%;
+  max-height: 68%;
+  overflow-y: auto;
+  box-sizing: border-box;
+  border-radius: 15px;
+  position: relative; /* Needed for absolute positioning of checkbox and delete button */
 }
 
-.close-button {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close-button:hover,
-.close-button:focus {
-  color: black;
-  text-decoration: none;
+/* Delete Task button */
+.delete-task-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: #ff6666;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
 }
+
+/* Complete checkbox */
+.complete-checklist {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.complete-checklist label {
+  margin-right: 8px; /* Space between the label and the checkbox */
+}
+
+.complete-checklist input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+
+.delete-task-btn:hover {
+  background-color: #ff4d4d; /* Darker red on hover */
+}
+
+
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 
 #calendarSection {
   background-color: #efe8dd3d;
@@ -231,7 +281,7 @@ button:hover {
   margin-top: 20px;
 }
 
-.modal {
+/* .modal {
   display: none; 
   position: fixed; 
   z-index: 1; 
@@ -265,7 +315,7 @@ button:hover {
   color: black;
   text-decoration: none;
   cursor: pointer;
-}
+} */
 
 input[type="url"] {
   width: 100%;
@@ -305,6 +355,23 @@ input[type="url"] {
   width: 90px;
   height: auto;
 }
+
+.profile-container {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.profile-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  margin-top: 6px; /* Move the images 6px down */
+}
+
+
+
 
 #createActivitySection {
   margin-top: 20px;
