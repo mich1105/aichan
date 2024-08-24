@@ -305,3 +305,26 @@ input[type="url"] {
   width: 90px;
   height: auto;
 }
+
+#createActivitySection {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#createActivitySection label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+#createActivitySection select {
+  width: 100%;
+  max-width: 300px;
+  height: 100px;
+}
+
+#createActivitySection button {
+  margin-top: 10px;
+}

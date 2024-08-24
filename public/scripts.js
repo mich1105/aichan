@@ -34,7 +34,6 @@ const dummyUsers = {
   }
 };
 
-
 localStorage.setItem('allUsers', JSON.stringify(dummyUsers));
 
 
@@ -44,8 +43,8 @@ let calendar;
 
 
 function initializeCalendar() {
-    const calendarEl = document.getElementById('calendar');
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  const calendarEl = document.getElementById('calendar');
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 
     tasks = tasks.map(task => {
@@ -57,9 +56,9 @@ function initializeCalendar() {
 
     localStorage.setItem('tasks', JSON.stringify(tasks)); 
 
-    if (calendar) {
-        calendar.destroy();
-    }
+  if (calendar) {
+      calendar.destroy();
+  }
 
     calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
@@ -106,21 +105,21 @@ function connectToUser() {
 }
 
 function findCommonFreeTime() {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  const connections = currentUser.connections || [];
-  const allUsers = JSON.parse(localStorage.getItem('allUsers')) || {};
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const connections = currentUser.connections || [];
+    const allUsers = JSON.parse(localStorage.getItem('allUsers')) || {};
 
-  let combinedTasks = JSON.parse(localStorage.getItem('tasks')) || currentUser.tasks || [];
+    let combinedTasks = JSON.parse(localStorage.getItem('tasks')) || currentUser.tasks || [];
 
   connections.forEach(connection => {
       const userTasks = allUsers[connection].tasks || [];
       combinedTasks = combinedTasks.concat(userTasks);
   });
 
-  combinedTasks.sort((a, b) => new Date(a.start) - new Date(b.start));
+    combinedTasks.sort((a, b) => new Date(a.start) - new Date(b.start));
 
-  const freeTimes = calculateFreeTime(combinedTasks);
-  return freeTimes;
+    const freeTimes = calculateFreeTime(combinedTasks);
+    return freeTimes;
 }
 
 function findCommonFreeTimeInRange(start, end, preference) {
@@ -146,21 +145,21 @@ function findCommonFreeTimeInRange(start, end, preference) {
 }
 
 function calculateFreeTime(tasks) {
-  let freeTimes = [];
-  let previousEnd = null;
+    let freeTimes = [];
+    let previousEnd = new Date(tasks[0].start); // Assuming tasks are sorted by start time
 
-  tasks.forEach((task, index) => {
-      const taskStart = new Date(task.start);
-      if (previousEnd && taskStart > previousEnd) {
-          freeTimes.push({
-              start: previousEnd.toISOString(),
-              end: taskStart.toISOString()
-          });
-      }
-      previousEnd = new Date(task.end);
-  });
+    tasks.forEach((task) => {
+        const taskStart = new Date(task.start);
+        if (previousEnd < taskStart) {
+            freeTimes.push({
+                start: previousEnd.toISOString(),
+                end: taskStart.toISOString()
+            });
+        }
+        previousEnd = new Date(task.end);
+    });
 
-  return freeTimes;
+    return freeTimes;
 }
 
 function displayFreeTimes(freeTimes) {
@@ -391,7 +390,6 @@ function createActivityTogether(event) {
     if (availableSlots.length === 0) {
         suggestedSchedulesList.innerHTML = '<li>No common free time available within the selected period and time preference.</li>';
     } else {
-
         availableSlots.slice(0, 4).forEach((slot, index) => {
             const slotDuration = (new Date(slot.end) - new Date(slot.start)) / (1000 * 60 * 60);
             if (slotDuration >= activityDuration) {
