@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Schedule Details</h1>
+    </header>
+    <main>
+        <section id="scheduleDetailsSection">
+            <h2>Your Schedule</h2>
+            <p><strong>Title:</strong> <span id="scheduleTitle"></span></p>
+            <p><strong>Start:</strong> <span id="scheduleStart"></span></p>
+            <p><strong>End:</strong> <span id="scheduleEnd"></span></p>
+        </section>
+        <button onclick="window.location.href='index.html'">Go Back</button>
+    </main>
+    <script>
+        // Get the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const scheduleTitle = urlParams.get('title');
+        const scheduleStart = urlParams.get('start');
+        const scheduleEnd = urlParams.get('end');
+
+        // Populate the schedule details
+        document.getElementById('scheduleTitle').textContent = scheduleTitle;
+        document.getElementById('scheduleStart').textContent = scheduleStart;
+        document.getElementById('scheduleEnd').textContent = scheduleEnd;
+    </script>
+</body>
+</html>

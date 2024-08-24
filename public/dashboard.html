@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List & Schedule</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>To-Do List & Schedule</h1>
+    </header>
+    <main>
+        <section id="importTimetableSection">
+            <h2>Import Timetable</h2>
+            <form id="importTimetableForm">
+                <input type="url" id="timetableUrl" name="timetableUrl" placeholder="Enter timetable URL" required>
+                <button id="importTimetableButton" type="submit">Import Timetable</button>
+            </form>
+        </section>               
+        <section id="taskSection">
+            <h2>Add New Task</h2>
+            <form id="taskForm" action="task-details.html" method="get">
+                <input type="text" id="taskInput" name="taskName" placeholder="Enter task name">
+                <input type="datetime-local" id="taskDeadline" name="taskDeadline" placeholder="Enter deadline">
+                <input type="number" id="taskDuration" name="taskDuration" placeholder="Duration (hours)" min="0">
+                <button id="addTaskButton" type="submit">Add Task</button>
+            </form>
+        </section>
+        <section id="taskListSection">
+            <h2>Task List</h2>
+            <ul id="taskList"></ul>
+        </section>
+        <section id="calendarSection">
+            <h2>Timetable</h2>
+            <div id="calendar"></div>
+        </section>
+        <section id="addScheduleSection">
+            <h2>Add Schedule</h2>
+            <form id="addScheduleForm" action="schedule-details.html" method="get">
+                <label for="scheduleTitle">Title:</label>
+                <input type="text" id="scheduleTitle" name="title"><br><br>
+                <label for="scheduleStart">Start:</label>
+                <input type="datetime-local" id="scheduleStart" name="start"><br><br>
+                <label for="scheduleEnd">End:</label>
+                <input type="datetime-local" id="scheduleEnd" name="end"><br><br>
+                <button id="addScheduleButton" type="submit">Add Schedule</button>
+            </form>
+        </section>
+        <section id="suggestedSchedulesSection">
+            <h2>Suggested Schedules</h2>
+            <ul id="suggestedSchedulesList"></ul>
+        </section>
+    </main>
+    <script src="scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+    <script src="https://unpkg.com/ical.js"></script>
+</body>
+</html>

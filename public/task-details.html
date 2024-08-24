@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Task Details</h1>
+    </header>
+    <main>
+        <section id="taskDetailsSection">
+            <h2>Your Task</h2>
+            <p><strong>Task:</strong> <span id="taskName"></span></p>
+            <p><strong>Deadline:</strong> <span id="taskDeadline"></span></p>
+            <p><strong>Duration:</strong> <span id="taskDuration"></span> hours</p>
+        </section>
+        <button onclick="window.location.href='index.html'">Go Back</button>
+    </main>
+    <script>
+        // Get the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const taskName = urlParams.get('taskName');
+        const taskDeadline = urlParams.get('taskDeadline');
+        const taskDuration = urlParams.get('taskDuration');
+    
+        // Store the task in localStorage
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.push({
+            title: taskName,
+            start: taskDeadline,
+            duration: taskDuration
+        });
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    
+        // Populate the task details
+        document.getElementById('taskName').textContent = taskName;
+        document.getElementById('taskDeadline').textContent = taskDeadline;
+        document.getElementById('taskDuration').textContent = taskDuration;
+    </script>
+    
+</body>
+</html>
