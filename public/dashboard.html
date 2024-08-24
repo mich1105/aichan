@@ -29,6 +29,10 @@
                 <button id="addTaskButton" type="submit">Add Task</button>
             </form>
         </section>
+        <!-- <section id="taskListSection">
+            <h2>Task List</h2>
+            <ul id="taskList"></ul>
+        </section> -->
         <section id="calendarSection">
             <h2>Timetable</h2>
             <div id="calendar"></div>
@@ -38,25 +42,46 @@
             <form id="connectUserForm">
                 <input type="text" id="connectUsername" name="connectUsername" placeholder="Enter username to connect" required>
                 <button type="submit">Connect</button>
-                <button id="unconnectButton" type="button">Unconnect</button>
             </form>
-        </section>
-        <section id="addScheduleSection">
-            <h2>Add Schedule</h2>
-            <form id="addScheduleForm" action="schedule-details.html" method="get">
-                <label for="scheduleTitle">Title:</label>
-                <input type="text" id="scheduleTitle" name="title"><br><br>
-                <label for="scheduleStart">Start:</label>
-                <input type="datetime-local" id="scheduleStart" name="start"><br><br>
-                <label for="scheduleEnd">End:</label>
-                <input type="datetime-local" id="scheduleEnd" name="end"><br><br>
-                <button id="addScheduleButton" type="submit">Add Schedule</button>
+        </section><section id="createActivitySection">
+            <h2>Create Activity Together</h2>
+            <form id="createActivityForm">
+                <label for="activityTitle">Activity Title:</label>
+                <input type="text" id="activityTitle" name="activityTitle" placeholder="Enter activity title" required><br><br>
+        
+                <label for="activityStart">Start Date:</label>
+                <input type="datetime-local" id="activityStart" name="activityStart" required><br><br>
+        
+                <label for="activityEnd">End Date:</label>
+                <input type="datetime-local" id="activityEnd" name="activityEnd" required><br><br>
+        
+                <label for="activityDuration">Duration (hours):</label>
+                <input type="number" id="activityDuration" name="activityDuration" min="1" required><br><br>
+        
+                <label for="activityUsers">Invite Users:</label>
+                <select id="activityUsers" name="activityUsers" multiple required>
+                    <option value="UserB">UserB</option>
+                    <option value="UserC">UserC</option>
+                    <option value="UserD">UserD</option>
+                    <!-- Add more users if necessary -->
+                </select><br><br>
+        
+                <label for="timePreference">Time Preference:</label>
+                <select id="timePreference" name="timePreference" required>
+                    <option value="morning">Morning (6 AM - 12 PM)</option>
+                    <option value="day">Day (12 PM - 6 PM)</option>
+                    <option value="evening">Evening (6 PM - 9 PM)</option>
+                    <option value="night">Night (9 PM - 12 AM)</option>
+                </select><br><br>
+        
+                <button type="submit">Create Activity</button>
             </form>
-        </section>
-        <section id="suggestedSchedulesSection">
-            <h2>Suggested Schedules</h2>
-            <ul id="suggestedSchedulesList"></ul>
-        </section>
+            <section id="suggestedSchedulesSection">
+                <h2>Suggested Schedules</h2>
+                <ul id="suggestedSchedulesList"></ul>
+            </section>
+            
+        </section>        
     </main>
 
     <div id="taskDetailsModal" class="modal">
