@@ -109,6 +109,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 });
+document.querySelector('.dropbtn').addEventListener('click', function(event) {
+  event.stopPropagation();
+  var dropdownContent = document.querySelector('.dropdown-content');
+  dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+});
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.style.display === 'block') {
+              openDropdown.style.display = 'none';
+          }
+      }
+  }
+}
 
 document.querySelectorAll('.dropdown-content input').forEach(function(checkbox) {
   checkbox.addEventListener('change', updateSelectedOptions);
