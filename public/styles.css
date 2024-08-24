@@ -268,9 +268,17 @@ button:hover {
 }
 
 #importTimetableForm, #taskForm {
-  z-index: 1000; /* Ensure it's on top */
-  position: relative; /* Ensure it follows the z-index */
+  z-index: 2; /* Reset z-index */
+  position: relative; /* Reset position to default */
 }
+
+#calendar {
+  width: 100%;
+  z-index: 1; /* Ensure the calendar is on top */
+  position: relative;
+}
+
+
 
 #calendarSection {
   background-color: #efe8dd3d;
@@ -279,9 +287,7 @@ button:hover {
   border-radius: 20px;
 }
 
-#calendar {
-  width: 100%;
-}
+
 
 .fc-event:hover {
   cursor: pointer;
