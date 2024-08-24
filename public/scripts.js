@@ -95,6 +95,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add event listener for timetable import
     document.getElementById('importTimetableForm').addEventListener('submit', importTimetable);
+
+  const dropdownButton = document.querySelector('.dropdown-button');
+  const dropdownContent = document.querySelector('.dropdown-content');
+  dropdownButton.addEventListener('click', function() {
+    dropdownContent.classList.toogle('show');
+  });
+  window.addEventListener('click', function(event) {
+    if (!event.target.matches('.dropdown-button')) {
+      if (drowdownContent.classList.contains('show')) {
+        dropdownContent.classList.remove('show');
+      }
+    }
+  })
+});
+
+document.querySelectorAll('.dropdown-content input').forEach(function(checkbox) {
+  checkbox.addEventListener('change', updateSelectedOptions);
+});
 });
 
 // Function to add a task
