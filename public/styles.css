@@ -7,7 +7,7 @@ body, h1, h2, ul, input, button {
 body {
   font-family: 'Trebuchet MS', sans-serif;
   line-height: 1.6;
-  background: linear-gradient(to bottom, #e7dfd4, #3e1d1d);
+  background: linear-gradient(to bottom, #fff4e5, #ffefa9);
   color: #333;
   padding: 20px;
 }
@@ -15,7 +15,7 @@ body {
 header {
   text-align: center;
   margin-bottom: 20px;
-  background-color: rgb(142, 106, 85, 0.5);
+  background-color: rgba(168, 64, 30, 0.4);
   padding: 8px;
   border-radius: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -28,8 +28,12 @@ header {
 }
 
 h1 {
-  color: #3e1d1d;
+  color: #631515;
   font-family: 'Gill Sans', sans-serif;
+}
+
+h2 {
+  color: #866f5e;
 }
 
 main {
@@ -70,7 +74,7 @@ main {
 }
 
 button {
-  background-color: #564e42;
+  background-color: #6e6351;
   color: #fff;
   cursor: pointer;
   padding: 5px 13px;
@@ -414,6 +418,14 @@ input[type="url"]:required {
 
 input[type="url"] {
   margin: 10px 0;
+}
+
+.art1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
 }
 
 .character1 {
