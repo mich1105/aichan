@@ -36,19 +36,6 @@ function addSchedule() {
   initializeCalendar();
 }
 
-// Function to render tasks
-function renderTasks() {
-  const taskList = document.getElementById('taskList');
-  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-  taskList.innerHTML = ''; // Clear the current list
-
-  tasks.forEach(task => {
-      const listItem = document.createElement('li');
-      listItem.textContent = task;
-      taskList.appendChild(listItem);
-  });
-}
 
 // Function to render schedules
 function renderSchedules() {
@@ -86,15 +73,19 @@ function initializeCalendar() {
   calendar.render();
 }
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
-  renderTasks();
+  // renderTasks();
   renderSchedules();
   initializeCalendar();
 
-  document.getElementById('addTaskButton').addEventListener('click', addTask);
-  document.getElementById('addScheduleButton').addEventListener('click', addSchedule);
+  // document.getElementById('addTaskButton').addEventListener('click', addTask);
+  // document.getElementById('addScheduleButton').addEventListener('click', addSchedule);
+
+  document.getElementById('taskForm').addEventListener('submit', addTask);
+    document.getElementById('addScheduleButton').addEventListener('click', addSchedule);
+
+    // Add event listener for timetable import
+    document.getElementById('importTimetableForm').addEventListener('submit', importTimetable);
 });
 
 // Function to add a task
@@ -127,52 +118,7 @@ function addTask(event) {
   initializeCalendar();
 }
 
-// Function to render tasks in the task list
-function renderTasks() {
-  const taskList = document.getElementById('taskList');
-  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  taskList.innerHTML = ''; // Clear the current list
-
-  tasks.forEach((task, index) => {
-      const listItem = document.createElement('li');
-      listItem.style.display = 'flex'; // Use flexbox for alignment
-      listItem.style.justifyContent = 'space-between'; // Space between task name and delete button
-      listItem.style.alignItems = 'center'; // Vertically center the content
-
-      // Task description
-      const taskDescription = document.createElement('span');
-      taskDescription.textContent = `${task.name} (Start: ${new Date(task.start).toLocaleString()} - End: ${new Date(task.end).toLocaleString()})`;
-
-      // Create the delete button
-      const deleteButton = document.createElement('button');
-      deleteButton.textContent = '✖'; // Unicode for a nicer "X"
-      deleteButton.style.backgroundColor = 'transparent';
-      deleteButton.style.border = 'none';
-      deleteButton.style.color = '#ff0000'; // Red color
-      deleteButton.style.fontSize = '16px';
-      deleteButton.style.cursor = 'pointer';
-      deleteButton.style.padding = '5px';
-
-      // Add hover effect
-      deleteButton.addEventListener('mouseover', () => {
-          deleteButton.style.color = '#ff6666'; // Lighter red on hover
-      });
-      deleteButton.addEventListener('mouseout', () => {
-          deleteButton.style.color = '#ff0000'; // Return to original color
-      });
-
-      // Add click event to delete the task
-      deleteButton.addEventListener('click', () => deleteTask(index));
-
-      // Append the task description and delete button to the list item
-      listItem.appendChild(taskDescription);
-      listItem.appendChild(deleteButton);
-
-      // Append the list item to the task list
-      taskList.appendChild(listItem);
-  });
-}
 
 
 function deleteTask(index) {
@@ -212,26 +158,26 @@ function initializeCalendar() {
   calendar.render();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderTasks();
-  renderSchedules();
-  initializeCalendar();
+// document.addEventListener('DOMContentLoaded', () => {
+//   renderTasks();
+//   renderSchedules();
+//   initializeCalendar();
 
-  document.getElementById('taskForm').addEventListener('submit', addTask);
-  document.getElementById('addScheduleButton').addEventListener('click', addSchedule);
-});
+//   document.getElementById('taskForm').addEventListener('submit', addTask);
+//   document.getElementById('addScheduleButton').addEventListener('click', addSchedule);
+// });
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderTasks();
-  renderSchedules();
-  initializeCalendar();
+// document.addEventListener('DOMContentLoaded', () => {
+//   renderTasks();
+//   renderSchedules();
+//   initializeCalendar();
 
-  document.getElementById('taskForm').addEventListener('submit', addTask);
-  document.getElementById('addScheduleButton').addEventListener('click', addSchedule);
+//   document.getElementById('taskForm').addEventListener('submit', addTask);
+//   document.getElementById('addScheduleButton').addEventListener('click', addSchedule);
 
-  // Add event listener for timetable import
-  document.getElementById('importTimetableForm').addEventListener('submit', importTimetable);
-});
+//   // Add event listener for timetable import
+//   document.getElementById('importTimetableForm').addEventListener('submit', importTimetable);
+// });
 
 // Function to add a task
 function addTask(event) {
@@ -258,57 +204,10 @@ function addTask(event) {
   tasks.push({ name: taskValue, start: deadlineValue, end: endDateTime.toISOString() });
   localStorage.setItem('tasks', JSON.stringify(tasks));
 
-  // Render tasks and update calendar
-  renderTasks();
+  // Initialize calendar with the updated tasks
   initializeCalendar();
 }
 
-// Function to render tasks in the task list
-function renderTasks() {
-  const taskList = document.getElementById('taskList');
-  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-  taskList.innerHTML = ''; // Clear the current list
-
-  tasks.forEach((task, index) => {
-      const listItem = document.createElement('li');
-      listItem.style.display = 'flex'; // Use flexbox for alignment
-      listItem.style.justifyContent = 'space-between'; // Space between task name and delete button
-      listItem.style.alignItems = 'center'; // Vertically center the content
-
-      // Task description
-      const taskDescription = document.createElement('span');
-      taskDescription.textContent = `${task.name || 'Untitled'} (Start: ${new Date(task.start).toLocaleString()} - End: ${new Date(task.end).toLocaleString()})`;
-
-      // Create the delete button
-      const deleteButton = document.createElement('button');
-      deleteButton.textContent = '✖'; // Unicode for a nicer "X"
-      deleteButton.style.backgroundColor = 'transparent';
-      deleteButton.style.border = 'none';
-      deleteButton.style.color = '#ff0000'; // Red color
-      deleteButton.style.fontSize = '16px';
-      deleteButton.style.cursor = 'pointer';
-      deleteButton.style.padding = '5px';
-
-      // Add hover effect
-      deleteButton.addEventListener('mouseover', () => {
-          deleteButton.style.color = '#ff6666'; // Lighter red on hover
-      });
-      deleteButton.addEventListener('mouseout', () => {
-          deleteButton.style.color = '#ff0000'; // Return to original color
-      });
-
-      // Add click event to delete the task
-      deleteButton.addEventListener('click', () => deleteTask(index));
-
-      // Append the task description and delete button to the list item
-      listItem.appendChild(taskDescription);
-      listItem.appendChild(deleteButton);
-
-      // Append the list item to the task list
-      taskList.appendChild(listItem);
-  });
-}
 
 function deleteTask(index) {
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -326,24 +225,24 @@ function deleteTask(index) {
 
 // Function to initialize the calendar with tasks
 function initializeCalendar() {
-  var calendarEl = document.getElementById('calendar');
-  var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    var calendarEl = document.getElementById('calendar');
+    var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
-      headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'timeGridDay,timeGridWeek,listWeek'
-      },
-      events: tasks.map(task => ({
-          title: task.name || 'Untitled',
-          start: task.start,
-          end: task.end
-      }))
-  });
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'timeGridDay,timeGridWeek,listWeek'
+        },
+        events: tasks.map(task => ({
+            title: task.name || 'Untitled',
+            start: task.start,
+            end: task.end
+        }))
+    });
 
-  calendar.render();
+    calendar.render();
 }
 
 // Function to import timetable
@@ -362,7 +261,7 @@ async function importTimetable(event) {
       });
 
       if (!response.ok) {
-          throw new Error('Failed to import timetable');
+          throw new Error(`Server error: ${response.status} ${response.statusText}`);
       }
 
       const events = await response.json();
@@ -372,13 +271,12 @@ async function importTimetable(event) {
       tasks = tasks.concat(events);
       localStorage.setItem('tasks', JSON.stringify(tasks));
 
-      // Render tasks and update calendar
-      renderTasks();
+      // Initialize calendar with the imported events
       initializeCalendar();
 
       alert('Timetable imported successfully!');
   } catch (error) {
-      console.error(error);
-      alert('Error importing timetable. Please check the URL and try again.');
+      console.error('Error importing timetable:', error);
+      alert(`Error importing timetable: ${error.message}`);
   }
 }

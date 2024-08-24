@@ -29,7 +29,7 @@
         // Store the task in localStorage
         const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
         tasks.push({
-            title: taskName,
+            name: taskName,
             start: taskDeadline,
             duration: taskDuration
         });
