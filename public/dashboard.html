@@ -28,16 +28,11 @@
                 <button id="addTaskButton" type="submit">Add Task</button>
             </form>
         </section>
-        <!-- <section id="taskListSection">
-            <h2>Task List</h2>
-            <ul id="taskList"></ul>
-        </section> -->
         
-<section id="calendarSection">
-    <h2>Timetable</h2>
-    <div id="calendar"></div>
-</section>
-
+        <section id="calendarSection">
+            <h2>Timetable</h2>
+            <div id="calendar"></div>
+        </section>
 
         <section id="addScheduleSection">
             <h2>Add Schedule</h2>
@@ -56,6 +51,24 @@
             <ul id="suggestedSchedulesList"></ul>
         </section>
     </main>
+
+    <!-- Task Details Modal -->
+    <div id="taskDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>Task Details</h2>
+            <p><strong>Task Name:</strong> <span id="modalTaskName"></span></p>
+            <p><strong>Start:</strong> <span id="modalTaskStart"></span></p>
+            <p><strong>End:</strong> <span id="modalTaskEnd"></span></p>
+            <p><strong>Duration:</strong> <span id="modalTaskDuration"></span> hours</p>
+            <p><strong>Description:</strong></p>
+            <textarea id="modalTaskDescription" rows="4" cols="50" placeholder="Enter more details..."></textarea>
+            <!-- Delete Task Button -->
+            <button id="deleteTaskButton" onclick="deleteTaskFromModal()">Delete Task</button>
+        </div>
+    </div>
+
+
     <script src="scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
     <script src="https://unpkg.com/ical.js"></script>

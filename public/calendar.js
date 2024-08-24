@@ -9,16 +9,16 @@ document.addEventListener('DOMContentLoaded', function() {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
-        events: storedTasks.map(task => {
-            const endTime = new Date(task.start);
-            endTime.setHours(endTime.getHours() + parseFloat(task.duration));
-            return {
-                title: task.title,
-                start: task.start,
-                end: endTime.toISOString(),
-                allDay: false
-            };
-        })
+        events: storedTasks.map(task => ({
+            id: task.id,
+            title: task.name,
+            start: task.start,
+            end: task.end,
+            allDay: false
+        })),
+        eventClick: function(info) {
+            showTaskDetails(info.event);
+        }
     });
 
     calendar.render();

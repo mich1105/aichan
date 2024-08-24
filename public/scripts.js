@@ -64,14 +64,45 @@ function initializeCalendar() {
           right: 'timeGridDay,timeGridWeek,listWeek'
       },
       events: tasks.map(task => ({
-          title: task.title || 'Untitled',  // Ensure we are using the correct property
+          title: task.name,
           start: task.start,
           end: task.end
-      }))
+      })),
+      eventClick: function(info) {
+          showTaskDetails(info.event);
+      }
   });
 
   calendar.render();
 }
+
+function showTaskDetails(event) {
+  // Populate modal with event details
+  document.getElementById('modalTaskName').textContent = event.title;
+  document.getElementById('modalTaskStart').textContent = new Date(event.start).toLocaleString();
+  document.getElementById('modalTaskEnd').textContent = new Date(event.end).toLocaleString();
+  
+  const durationInHours = (new Date(event.end) - new Date(event.start)) / (1000 * 60 * 60);
+  document.getElementById('modalTaskDuration').textContent = durationInHours.toFixed(2);
+
+  // Show the modal
+  document.getElementById('taskDetailsModal').style.display = "block";
+}
+
+function closeModal() {
+  // Hide the modal
+  document.getElementById('taskDetailsModal').style.display = "none";
+}
+
+// Close the modal when clicking outside of it
+window.onclick = function(event) {
+  if (event.target == document.getElementById('taskDetailsModal')) {
+      closeModal();
+  }
+}
+
+// Initialize the calendar when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initializeCalendar);
 
 document.addEventListener('DOMContentLoaded', () => {
   // renderTasks();
@@ -199,14 +230,19 @@ function addTask(event) {
   const startDateTime = new Date(deadlineValue);
   const endDateTime = new Date(startDateTime.getTime() + durationValue * 60 * 60 * 1000);
 
+  // Generate a unique ID for the task
+  const taskId = 'task-' + Date.now();
+
   // Save task to localStorage
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  tasks.push({ name: taskValue, start: deadlineValue, end: endDateTime.toISOString() });
+  tasks.push({ id: taskId, name: taskValue, start: deadlineValue, end: endDateTime.toISOString() });
   localStorage.setItem('tasks', JSON.stringify(tasks));
 
-  // Initialize calendar with the updated tasks
+  // Render tasks and update calendar
+  renderTasks();
   initializeCalendar();
 }
+
 
 
 function deleteTask(index) {
@@ -225,25 +261,80 @@ function deleteTask(index) {
 
 // Function to initialize the calendar with tasks
 function initializeCalendar() {
-    var calendarEl = document.getElementById('calendar');
-    var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  var calendarEl = document.getElementById('calendar');
+  var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'timeGridDay,timeGridWeek,listWeek'
-        },
-        events: tasks.map(task => ({
-            title: task.name || 'Untitled',
-            start: task.start,
-            end: task.end
-        }))
-    });
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'timeGridWeek',
+      headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'timeGridDay,timeGridWeek,listWeek'
+      },
+      events: tasks.map(task => ({
+          title: task.name,
+          start: task.start,
+          end: task.end
+      })),
+      eventClick: function(info) {
+          showTaskDetails(info.event);
+      }
+  });
 
-    calendar.render();
+  calendar.render();
 }
+
+let currentEventId = null;
+
+function showTaskDetails(event) {
+    // Store the current event ID for deletion
+    currentEventId = event.id;
+    
+    // Populate modal with event details
+    document.getElementById('modalTaskName').textContent = event.title;
+    document.getElementById('modalTaskStart').textContent = new Date(event.start).toLocaleString();
+    document.getElementById('modalTaskEnd').textContent = new Date(event.end).toLocaleString();
+    
+    const durationInHours = (new Date(event.end) - new Date(event.start)) / (1000 * 60 * 60);
+    document.getElementById('modalTaskDuration').textContent = durationInHours.toFixed(2);
+
+    // Show the modal
+    document.getElementById('taskDetailsModal').style.display = "block";
+}
+
+function deleteTaskFromModal() {
+    // Get the tasks from localStorage
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    // Find and remove the task with the currentEventId
+    tasks = tasks.filter(task => task.id !== currentEventId);
+
+    // Update localStorage
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    // Re-render the calendar
+    initializeCalendar();
+
+    // Close the modal
+    closeModal();
+}
+
+
+function closeModal() {
+    // Hide the modal
+    document.getElementById('taskDetailsModal').style.display = "none";
+}
+
+
+// Close the modal when clicking outside of it
+window.onclick = function(event) {
+    if (event.target == document.getElementById('taskDetailsModal')) {
+        closeModal();
+    }
+}
+
+
+
 
 // Function to import timetable
 async function importTimetable(event) {
