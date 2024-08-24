@@ -6,6 +6,19 @@
     <title>To-Do List & Schedule</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+    <style>
+        .leaderboard-container {
+            width: 100%;
+            max-width: 1200px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+            padding: 55px !important;
+            border-radius: 5px !important;
+            background-color: #f9f9f9 !important;
+            margin-bottom: 5px !important;
+        }
+    </style>
+    
+    
 </head>
 <body>
     <header>
@@ -24,18 +37,24 @@
                     <!-- Top 3 Podium -->
                     <div class="podium">
                         <div class="podium-step third">
-                            <div class="rank">3rd</div>
-                            <h3 class="name">User B</h3>
+                            <div class="rank">
+                                <img src="images/medal3.png" alt="third rank" style="width: 45px; height: 50px;">
+                             </div>
+                            <h3 class="name">jotham</h3>
                             <div class="score">70 pts</div>
                         </div>
                         <div class="podium-step first">
-                            <div class="rank">1st</div>
-                            <h3 class="name">User C</h3>
+                            <div class="rank">
+                                <img src="images/medal1.png" alt="third rank" style="width: 45px; height: 50px;">
+                             </div>
+                            <h3 class="name">rhatwo</h3>
                             <div class="score">90 pts</div>
                         </div>
                         <div class="podium-step second">
-                            <div class="rank">2nd</div>
-                            <h3 class="name">User A</h3>
+                            <div class="rank">
+                                <img src="images/medal2.png" alt="third rank" style="width: 45px; height: 50px;">
+                             </div>
+                            <h3 class="name">dylan</h3>
                             <div class="score">80 pts</div>
                         </div>
                     </div>
@@ -43,22 +62,22 @@
                     <div class="leaderboard">
                         <div class="leaderboard-item">
                             <span class="leaderboard-rank">4.</span>
-                            <span class="leaderboard-user">User D</span>
+                            <span class="leaderboard-user">aiko</span>
                             <span class="leaderboard-score">60 pts</span>
                         </div>
                         <div class="leaderboard-item">
                             <span class="leaderboard-rank">5.</span>
-                            <span class="leaderboard-user">User E</span>
+                            <span class="leaderboard-user">michu</span>
                             <span class="leaderboard-score">55 pts</span>
                         </div>
                         <div class="leaderboard-item">
                             <span class="leaderboard-rank">6.</span>
-                            <span class="leaderboard-user">User F</span>
+                            <span class="leaderboard-user">syncs</span>
                             <span class="leaderboard-score">50 pts</span>
                         </div>
                         <div class="leaderboard-item">
                             <span class="leaderboard-rank">7.</span>
-                            <span class="leaderboard-user">User G</span>
+                            <span class="leaderboard-user">sudata</span>
                             <span class="leaderboard-score">45 pts</span>
                         </div>
                     </div>
@@ -67,7 +86,7 @@
                 <div class="profile-container">
                     <div class="profile-header">
                       <img src="profile.jpeg" alt="Profile Picture">
-                      <span>User C</span>
+                      <span>rhatwo</span>
                     </div>
                     
                     <div class="streaks">
@@ -76,9 +95,15 @@
                     </div>
                     
                     <div class="badges">
-                      <div class="badge" data-tooltip="Badge A: Awarded for 100 tasks completed">A</div>
-                      <div class="badge" data-tooltip="Badge B: Consistent participation for 30 days">B</div>
-                      <div class="badge" data-tooltip="Badge C: Top scorer in the leaderboard">C</div>
+                      <div class="badge" data-tooltip="Awarded for 100 tasks completed">
+                        <img src="images/100task.png" alt="third rank" style="width: 35px; height: 35px;">
+                      </div>
+                      <div class="badge" data-tooltip="Consistent participation for 30 days">
+                        <img src="images/30streak.png" alt="third rank" style="width: 35px; height: 35px;">
+                      </div>
+                      <div class="badge" data-tooltip="Badge C: Top scorer in the leaderboard">
+                        <img src="images/topscorer.png" alt="third rank" style="width: 35px; height: 35px;">
+                      </div>
                     </div>
                   </div>
                   

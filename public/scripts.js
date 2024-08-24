@@ -7,8 +7,8 @@ const dummyUsers = {
         ],
         connections: []
     },
-    "UserB": {
-        username: "UserB",
+    "dylan": {
+        username: "dylan",
         tasks: [
             { id: "task-3", title: "Task 3", start: "2024-08-31T09:00:00", end: "2024-08-31T10:30:00" },
             { id: "task-4", title: "Task 4", start: "2024-08-31T13:00:00", end: "2024-08-31T14:00:00" }
@@ -16,7 +16,7 @@ const dummyUsers = {
         connections: []
     },
     "UserC": {
-        username: "UserC",
+        username: "jotham",
         tasks: [
             { id: "task-5", title: "Task 5", start: "2024-08-30T09:00:00", end: "2024-08-30T10:30:00" },
             { id: "task-6", title: "Task 6", start: "2024-08-30T13:00:00", end: "2024-08-30T14:00:00" }
@@ -24,7 +24,7 @@ const dummyUsers = {
         connections: []
     },
     "UserD": {
-        username: "UserD",
+        username: "aiko",
         tasks: [
             { id: "task-7", title: "Task 7", start: "2024-08-23T07:00:00", end: "2024-08-30T09:30:00" },
             { id: "task-8", title: "Task 8", start: "2024-08-23T11:00:00", end: "2024-08-30T11:30:00" }

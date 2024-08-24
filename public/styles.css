@@ -439,21 +439,24 @@ input[type="url"] {
   margin: 0 auto; 
   text-align: center;
   position: relative;
+  padding-bottom: 10px; 
 }
 
 .profile-container {
   position: absolute;
-  top: -30px;
+  top: 10px;
   right: 10px;
   background-color: #ffffff; 
   padding: 15px; 
   border: 2px solid #ccc;
   border-radius: 12px; 
-  width: auto;
+  width: 150px; /* Set the desired width */
+  height: 110px; /* Set the desired height */
   text-align: left;
   z-index: 10;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
+
 
 .profile-container .profile-header {
   display: flex;
@@ -538,6 +541,7 @@ input[type="url"] {
   justify-content: center;
   align-items: flex-end;
   margin-bottom: 15px;
+  top: -100px;
 }
 
 .podium-step {
@@ -546,50 +550,42 @@ input[type="url"] {
   position: relative;
   width: 70px;
   border-radius: 10px 10px 0 0;
-  background-color: #f1f1f1;
+  background-color: #E6DCD3;
   padding: 8px;
 }
 
 /* Podium Heights */
 .first {
-  height: 100px;
+  height: 220px;
   order: 2;
 }
 
 .second {
-  height: 85px;
-  order: 3;
+  height: 190px;
+  order: 1;
 }
 
 .third {
-  height: 70px;
-  order: 1;
+  height: 160px;
+  order: 3;
 }
 
 .podium-step .rank {
   position: absolute;
-  top: -20px;
+  top: 0px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #ffeb3b;
   padding: 5px 8px;
   border-radius: 50%;
   font-size: 12px;
   font-weight: bold;
 }
 
-.podium-step.second .rank {
-  background-color: #c0c0c0;
-}
-
-.podium-step.third .rank {
-  background-color: #cd7f32;
-}
-
 .podium-step .name {
   font-weight: bold;
   font-size: 14px;
-  margin-bottom: 5px;
+  margin-bottom: 80px;
+  margin-top: -50px;
   color: #333;
 }
 
@@ -599,12 +595,12 @@ input[type="url"] {
 }
 
 .leaderboard {
-  margin-bottom: 10px;
-  padding: 5px;
+  margin-bottom: 0px;
+  padding: 5px 10px;
   border: 2px solid #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
-  max-width: 160px;
+  max-width: 270px;
   margin: 0 auto;
 }
 
@@ -625,6 +621,7 @@ input[type="url"] {
 
 .leaderboard-item:last-child {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
 .leaderboard-rank {
