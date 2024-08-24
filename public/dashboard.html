@@ -40,7 +40,6 @@
                         </div>
                     </div>
             
-                    <!-- Top 4-7 Leaderboard List -->
                     <div class="leaderboard">
                         <div class="leaderboard-item">
                             <span class="leaderboard-rank">4.</span>
@@ -66,19 +65,16 @@
                 </div>
 
                 <div class="profile-container">
-                    <!-- First Line: Username and Profile Picture -->
                     <div class="profile-header">
                       <img src="profile.jpeg" alt="Profile Picture">
                       <span>User C</span>
                     </div>
                     
-                    <!-- Second Line: Streak -->
                     <div class="streaks">
                       <img src="streak.jpeg" alt="Streak Icon">
                       <span>5</span>
                     </div>
                     
-                    <!-- Third Line: Badges -->
                     <div class="badges">
                       <div class="badge" data-tooltip="Badge A: Awarded for 100 tasks completed">A</div>
                       <div class="badge" data-tooltip="Badge B: Consistent participation for 30 days">B</div>
@@ -107,10 +103,6 @@
                 <button id="addTaskButton" type="submit">Add Task</button>
             </form>
         </section>        
-        <!-- <section id="taskListSection">
-            <h2>Task List</h2>
-            <ul id="taskList"></ul>
-        </section> -->
         <section id="calendarSection">
             <h2>Timetable</h2>
             <div id="calendar"></div>
@@ -144,7 +136,6 @@
                 <option value="UserB">UserB</option>
                 <option value="UserC">UserC</option>
                 <option value="UserD">UserD</option>
-                <!-- Add more users if necessary -->
             </select><br><br>
     
             <label for="timePreference">Time Preference:</label>
@@ -166,8 +157,7 @@
     <div id="taskDetailsModal" class="modal">
         <div class="modal-content">
             <span id="closeModal" class="close">&times;</span>
-    
-            <!-- Flex container for task details and upload section -->
+
             <div class="modal-body">
                 <div class="task-info">
                     <h2>Task Details</h2>
@@ -176,8 +166,7 @@
                     <p><strong>End:</strong> <span id="modalTaskEnd"></span></p>
                     <p><strong>Duration:</strong> <span id="modalTaskDuration"></span> hours</p>
                 </div>
-    
-                <!-- Image Upload for joint activity tasks (Positioned to the right side) -->
+
                 <div id="uploadPhotoSection" class="upload-photo-section">
                     <label for="uploadPhotoInput">Upload Photo:</label>
                     <input type="file" id="uploadPhotoInput" accept="image/*">
@@ -187,11 +176,9 @@
                     </div>
                 </div>
             </div>
-    
-            <!-- Container for profile photos (You can position this elsewhere as needed) -->
+
             <div id="profilePhotos" class="profile-container2"></div>
-    
-            <!-- Complete checkbox and Delete Task button -->
+
             <div class="complete-checklist">
                 <label for="completeCheckbox">Complete</label>
                 <input type="checkbox" id="completeCheckbox">

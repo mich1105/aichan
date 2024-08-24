@@ -19,8 +19,6 @@ header {
   padding: 8px;
   border-radius: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  position: -webkit-sticky;
-  position: sticky;
   top: 0;
   z-index: 1000;
   width: 825px;
@@ -113,24 +111,19 @@ button:hover {
   cursor: pointer;
 }
 
-/* Modal container */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
+    display: none;
+    position: fixed; 
+    z-index: 1000; 
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
 }
 
-/* Modal content */
-/* Modal content */
-/* Modal content */
-/* Position the modal content and elements */
 .modal-content {
   background-color: #fefefe;
   margin: 5% auto;
@@ -143,10 +136,9 @@ button:hover {
   overflow-y: auto;
   box-sizing: border-box;
   border-radius: 15px;
-  position: relative; /* Needed for absolute positioning of checkbox and delete button */
+  position: relative; 
 }
 
-/* Delete Task button */
 .delete-task-btn {
   position: absolute;
   bottom: 20px;
@@ -180,8 +172,6 @@ button:hover {
   background-color: darkred;
 }
 
-
-/* Complete checkbox */
 .complete-checklist {
   position: absolute;
   bottom: 20px;
@@ -191,7 +181,7 @@ button:hover {
 }
 
 .complete-checklist label {
-  margin-right: 8px; /* Space between the label and the checkbox */
+  margin-right: 8px;
 }
 
 .complete-checklist input[type="checkbox"] {
@@ -200,14 +190,10 @@ button:hover {
   cursor: pointer;
 }
 
-
 .delete-task-btn:hover {
-  background-color: #ff4d4d; /* Darker red on hover */
+  background-color: #ff4d4d; 
 }
 
-
-
-/* Close button */
 .close {
     color: #aaa;
     float: right;
@@ -224,17 +210,17 @@ button:hover {
 
 .modal-body {
   display: flex;
-  justify-content: space-between; /* Space between task details and upload section */
-  align-items: flex-start; /* Align items to the top */
-  position: relative; /* Ensure the upload section can be positioned absolutely within this container */
+  justify-content: space-between; 
+  align-items: flex-start; 
+  position: relative; 
 }
 
 .upload-photo-section {
-  position: absolute; /* Position it independently */
-  top: 30px; /* Move it down by 30px from the top of the container */
-  right: 0; /* Align it to the right */
+  position: absolute; 
+  top: 30px; 
+  right: 0; 
   left: 300px;
-  width: 220px; /* Maintain original width for the upload section */
+  width: 220px; 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -242,43 +228,41 @@ button:hover {
 
 .upload-photo-section label {
   font-weight: bold;
-  margin-bottom: 10px; /* Space between label and input */
-  font-size: 1em; /* Keep the label text size normal */
+  margin-bottom: 10px; 
+  font-size: 1em; 
   position: relative;
-  left: 0px; /* Keep the label aligned with the input */
+  left: 0px; 
 }
 
 #uploadPhotoInput {
-  width: 100%; /* Ensure the input fits within the section */
-  font-size: 1em; /* Keep the input text size normal */
+  width: 100%; 
+  font-size: 1em; 
 }
 
 #uploadedPhotoPreview {
   border-radius: 8px;
   border: 2px solid #ddd;
-  margin-top: 10px; /* Space between input and image */
-  max-width: 300px; /* Scale the width by 80% of the original (120px * 1.8 = 216px) */
-  max-height: 300px; /* Scale the height by 80% */
+  margin-top: 10px; 
+  max-width: 300px;
+  max-height: 300px; 
 }
 
 .profile-container2 {
   display: flex;
   gap: 10px;
-  position: relative; /* Ensure the profile pictures are positioned relative to their container */
+  position: relative; 
 }
 
 #importTimetableForm, #taskForm {
-  z-index: 2; /* Reset z-index */
-  position: relative; /* Reset position to default */
+  z-index: 2; 
+  position: relative; 
 }
 
 #calendar {
   width: 100%;
-  z-index: 1; /* Ensure the calendar is on top */
+  z-index: 1;
   position: relative;
 }
-
-
 
 #calendarSection {
   background-color: #efe8dd3d;
@@ -362,42 +346,6 @@ button:hover {
   margin-top: 20px;
 }
 
-/* .modal {
-  display: none; 
-  position: fixed; 
-  z-index: 1; 
-  left: 0;
-  top: 0;
-  width: 100%; 
-  height: 100%; 
-  overflow: auto; 
-  background-color: rgb(0,0,0); 
-  background-color: rgba(0,0,0,0.4); 
-  padding-top: 60px;
-}
-
-.modal-content {
-  background-color: #fefefe;
-  margin: 5% auto; 
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%; 
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-} */
-
 input[type="url"] {
   width: 100%;
   max-width: 669px;
@@ -445,18 +393,12 @@ input[type="url"] {
   height: auto;
 }
 
-/* .profile-container2 {
-  margin-top: 20px;
-  display: flex;
-  gap: 10px;
-} */
-
 .profile-photo {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   border: 2px solid #ddd;
-  margin-top: 6px; /* Move the images 6px down */
+  margin-top: 6px; 
 }
 
 
@@ -485,99 +427,92 @@ input[type="url"] {
   margin-top: 10px;
 }
 
-/* Container for the entire top section */
 .top-section {
   display: flex;
   justify-content: center;
-  position: relative; /* Allows the user profile to be positioned absolutely */
+  position: relative; 
   margin-bottom: 20px;
 }
 
-/* Centered Leaderboard */
 .leaderboard-container {
   max-width: 300px;
-  margin: 0 auto; /* Ensure the leaderboard is centered */
+  margin: 0 auto; 
   text-align: center;
   position: relative;
 }
 
-/* User Profile Positioned at the Top Right */
 .profile-container {
   position: absolute;
   top: -30px;
   right: 10px;
-  background-color: #ffffff; /* Pure white background for a cleaner look */
-  padding: 15px; /* Increased padding for better spacing */
+  background-color: #ffffff; 
+  padding: 15px; 
   border: 2px solid #ccc;
-  border-radius: 12px; /* Slightly more rounded corners */
+  border-radius: 12px; 
   width: auto;
   text-align: left;
   z-index: 10;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-/* First Line: Username and Profile Picture */
 .profile-container .profile-header {
   display: flex;
   align-items: center;
-  margin-bottom: 10px; /* Increased spacing for clarity */
+  margin-bottom: 10px; 
 }
 
 .profile-container .profile-header img {
-  width: 32px; /* Slightly larger profile picture */
+  width: 32px; 
   height: 32px;
   border-radius: 50%;
-  margin-right: 10px; /* More space between the name and the image */
-  border: 2px solid #ddd; /* Border around the profile picture for emphasis */
+  margin-right: 10px; 
+  border: 2px solid #ddd; 
 }
 
-/* Second Line: Streak */
 .profile-container .streaks {
   display: flex;
   align-items: center;
-  margin-bottom: 10px; /* Increased spacing for clarity */
+  margin-bottom: 10px; 
 }
 
 .profile-container .streaks img {
-  width: 24px; /* Slightly larger streak icon */
+  width: 24px; 
   height: 24px;
-  margin-right: 8px; /* More space between the icon and text */
+  margin-right: 8px; 
 }
 
-/* Third Line: Badges */
 .profile-container .badges {
   display: flex;
-  gap: 10px; /* Increased gap between badges */
-  justify-content: center; /* Center the badges horizontally */
+  gap: 10px; 
+  justify-content: center; 
 }
 
 .profile-container .badge {
-  width: 32px; /* Slightly larger badges */
+  width: 32px; 
   height: 32px;
-  background-color: #f0f0f0; /* Lighter background for badges */
+  background-color: #f0f0f0; 
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px; /* Larger text inside badges */
+  font-size: 14px;
   font-weight: bold;
   color: #555;
   border: 1px solid #ccc;
   position: relative;
-  cursor: pointer; /* Make badges clickable */
-  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s; 
 }
 
 .profile-container .badge:hover {
-  background-color: #e0e0e0; /* Slightly darker on hover */
-  transform: scale(1.1); /* Slight zoom effect on hover */
+  background-color: #e0e0e0; 
+  transform: scale(1.1); 
 }
 
-/* Tooltip Styling */
 .profile-container .badge::after {
-  content: attr(data-tooltip); /* Use the data-tooltip attribute for the text */
+  content: attr(data-tooltip); 
   position: absolute;
-  bottom: 120%; /* Position above the badge */
+  bottom: 120%; 
   left: 50%;
   transform: translateX(-50%);
   background-color: #333;
@@ -590,7 +525,7 @@ input[type="url"] {
   font-size: 12px;
   transition: opacity 0.3s;
   pointer-events: none;
-  z-index: 1000; /* Ensure tooltip appears above other elements */
+  z-index: 1000; 
 }
 
 .profile-container .badge:hover::after {
@@ -598,9 +533,6 @@ input[type="url"] {
   visibility: visible;
 }
 
-
-
-/* Podium Container */
 .podium {
   display: flex;
   justify-content: center;
@@ -608,7 +540,6 @@ input[type="url"] {
   margin-bottom: 15px;
 }
 
-/* Individual Podium Step */
 .podium-step {
   text-align: center;
   margin: 0 8px;
@@ -635,7 +566,6 @@ input[type="url"] {
   order: 1;
 }
 
-/* Rank Styling */
 .podium-step .rank {
   position: absolute;
   top: -20px;
@@ -656,7 +586,6 @@ input[type="url"] {
   background-color: #cd7f32;
 }
 
-/* Name and Score Styling */
 .podium-step .name {
   font-weight: bold;
   font-size: 14px;
@@ -669,7 +598,6 @@ input[type="url"] {
   color: #777;
 }
 
-/* Leaderboard Container */
 .leaderboard {
   margin-bottom: 10px;
   padding: 5px;
@@ -680,16 +608,14 @@ input[type="url"] {
   margin: 0 auto;
 }
 
-/* Title aligned to the left */
 .leaderboard h2 {
-  text-align: left; /* Aligns the title to the left */
+  text-align: left; 
   margin-bottom: 8px;
   font-size: 16px;
   color: #333;
-  margin-left: 10px; /* Add left margin for spacing */
+  margin-left: 10px; 
 }
 
-/* Individual Leaderboard Item */
 .leaderboard-item {
   display: flex;
   justify-content: space-between;
@@ -701,7 +627,6 @@ input[type="url"] {
   border-bottom: none;
 }
 
-/* User Name and Rank */
 .leaderboard-rank {
   font-weight: bold;
   color: #4caf50;
@@ -716,14 +641,12 @@ input[type="url"] {
   font-size: 10px;
 }
 
-/* User Score */
 .leaderboard-score {
   font-weight: bold;
   color: #555;
   font-size: 10px;
 }
 
-/* Hover Effect */
 .leaderboard-item:hover {
   background-color: #f1f1f1;
   transition: background-color 0.3s ease;
