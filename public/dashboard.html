@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <h1>To-Do List & Schedule</h1>
+        <h1>TO-DO LIST & SCHEDULE</h1>
     </header>
     <main>
         <section id="importTimetableSection">
@@ -18,6 +18,7 @@
                 <input type="url" id="timetableUrl" name="timetableUrl" placeholder="Enter timetable URL" required>
                 <button id="importTimetableButton" type="submit">Import Timetable</button>
             </form>
+            <br>
         </section>               
         <section id="taskSection">
             <h2>Add New Task</h2>
@@ -28,25 +29,21 @@
                 <button id="addTaskButton" type="submit">Add Task</button>
             </form>
         </section>
-        
+        <!-- <section id="taskListSection">
+            <h2>Task List</h2>
+            <ul id="taskList"></ul>
+        </section> -->
         <section id="calendarSection">
             <h2>Timetable</h2>
             <div id="calendar"></div>
-            <div class="dropdown">
-                <h2>Connection</h2>
-                <button class="dropbtn">Friends</button>
-                <div class="dropdown-content">
-                    <label><input type="checkbox" value="Dylan">Dylan Uno</label>
-                    <br>
-                    <label><input type="checkbox" value="Jotham">Jotham Panjaitan</label>
-                    <br>
-                    <label><input type="checkbox" value="Michael">Michael Hutapea</label>
-                    <br>
-                    <label><input type="checkbox" value="Aiko">Sarah Aiko</label>
-                </div>
-            </div>
         </section>
-
+        <section id="connectUserSection">
+            <h2>Connect with a User</h2>
+            <form id="connectUserForm">
+                <input type="text" id="connectUsername" name="connectUsername" placeholder="Enter username to connect" required>
+                <button type="submit">Connect</button>
+            </form>
+        </section>
         <section id="addScheduleSection">
             <h2>Add Schedule</h2>
             <form id="addScheduleForm" action="schedule-details.html" method="get">
@@ -65,22 +62,21 @@
         </section>
     </main>
 
-    <!-- Task Details Modal -->
     <div id="taskDetailsModal" class="modal">
         <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
+            <span class="close" id="closeModal">&times;</span>
             <h2>Task Details</h2>
-            <p><strong>Task Name:</strong> <span id="modalTaskName"></span></p>
+            <p><strong>Name:</strong> <span id="modalTaskName"></span></p>
             <p><strong>Start:</strong> <span id="modalTaskStart"></span></p>
             <p><strong>End:</strong> <span id="modalTaskEnd"></span></p>
             <p><strong>Duration:</strong> <span id="modalTaskDuration"></span> hours</p>
-            <p><strong>Description:</strong></p>
-            <textarea id="modalTaskDescription" rows="4" cols="50" placeholder="Enter more details..."></textarea>
-            <!-- Delete Task Button -->
-            <button id="deleteTaskButton" onclick="deleteTaskFromModal()">Delete Task</button>
+            <button id="deleteTaskButton">Delete Task</button>
         </div>
     </div>
-
+    
+    <div class="character1">
+        <img src="character1.png" alt="Fixed PNG">
+    </div>
 
     <script src="scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>

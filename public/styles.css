@@ -1,44 +1,46 @@
-/* Reset some default styles */
 body, h1, h2, ul, input, button {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Basic styles for the body */
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Trebuchet MS', sans-serif;
   line-height: 1.6;
-  background-color: #f4f4f4;
+  background: linear-gradient(to bottom, #e7dfd4, #3e1d1d);
   color: #333;
   padding: 20px;
 }
 
-/* Header styles */
 header {
   text-align: center;
   margin-bottom: 20px;
-  background-color: #2196f3; /* Indigo */
-  padding: 10px;
-  border-radius: 8px;
+  background-color: rgb(142, 106, 85, 0.5);
+  padding: 8px;
+  border-radius: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 825px;
+  margin: 0 auto;
 }
 
 h1 {
-  color: #fff;
+  color: #3e1d1d;
+  font-family: 'Gill Sans', sans-serif;
 }
 
-/* Main content styles */
 main {
   max-width: 800px;
   margin: 0 auto;
   background: #fff;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Task section styles */
 #taskSection {
   margin-bottom: 20px;
   background-color: #fff;
@@ -67,22 +69,20 @@ main {
   max-width: 150px;
 }
 
-/* Button styles */
 button {
-  background-color: #ff9800; /* Orange */
+  background-color: #564e42;
   color: #fff;
   cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 4px;
+  padding: 5px 13px;
+  border-radius: 10px;
   border: none;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 button:hover {
-  background-color: #ffc107; /* Orange hover */
+  background-color: #ffc107;
 }
 
-/* Task list styles */
 #taskListSection {
   margin-top: 20px;
 }
@@ -109,33 +109,30 @@ button:hover {
   cursor: pointer;
 }
 
-/* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
+  display: none;
   position: fixed;
-  z-index: 1; /* Sit on top */
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
 }
 
-/* Modal Content */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
-  max-width: 500px; /* Maximum width */
+  width: 80%;
+  max-width: 500px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-  border-radius: 10px; /* Rounded corners */
+  border-radius: 10px;
 }
 
-/* The Close Button */
 .close-button {
   color: #aaa;
   float: right;
@@ -151,21 +148,24 @@ button:hover {
 }
 
 #calendarSection {
+  background-color: #efe8dd3d;
   position: relative;
   padding: 20px;
+  border-radius: 20px;
 }
 
 #calendar {
   width: 100%;
 }
 
+.fc-event:hover {
+  cursor: pointer;
+}
+
 .dropdown {
   margin-top: 20px;
   position: relative;
   display: inline-block;
-  /* position: absolute;
-  top: 100%;
-  right: 30%; */
 }
 
 .dropbtn {
@@ -229,4 +229,79 @@ button:hover {
 
 #addScheduleSection {
   margin-top: 20px;
+}
+
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; 
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+input[type="url"] {
+  width: 100%;
+  max-width: 669px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="url"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+input[type="url"]::placeholder {
+  color: #888;
+}
+
+
+input[type="url"]:required {
+  border-color: #7d684b;
+}
+
+input[type="url"] {
+  margin: 10px 0;
+}
+
+.character1 {
+  position: fixed;
+  bottom: 0;
+  left: 15;
+}
+
+.character1 img {
+  width: 90px;
+  height: auto;
 }
