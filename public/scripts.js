@@ -44,45 +44,49 @@ let calendar; // Declare the calendar variable outside the function so it can be
 
 // Function to initialize the calendar with tasks from UserA or other users
 function initializeCalendar() {
-  const calendarEl = document.getElementById('calendar');
-  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const calendarEl = document.getElementById('calendar');
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  // Ensure each task has a unique ID
-  tasks = tasks.map(task => {
-      if (!task.id) {
-          task.id = 'task-' + Date.now() + Math.random().toString(36).substring(7);
-      }
-      return task;
-  });
+    // Ensure each task has a unique ID
+    tasks = tasks.map(task => {
+        if (!task.id) {
+            task.id = 'task-' + Date.now() + Math.random().toString(36).substring(7);
+        }
+        return task;
+    });
 
-  localStorage.setItem('tasks', JSON.stringify(tasks)); // Save back to localStorage
+    localStorage.setItem('tasks', JSON.stringify(tasks)); // Save back to localStorage
 
-  if (calendar) {
-      calendar.destroy();
-  }
+    if (calendar) {
+        calendar.destroy();
+    }
 
-  // Initialize the calendar with tasks
-  calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
-      headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'timeGridDay,timeGridWeek,listWeek'
-      },
-      events: tasks.map(task => ({
-          id: task.id,
-          title: task.name || task.title, // Support for both `name` and `title`
-          start: task.start,
-          end: task.end,
-          allDay: false
-      })),
-      eventClick: function(info) {
-          showTaskDetails(info.event);
-      }
-  });
+    // Initialize the calendar with tasks
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'timeGridDay,timeGridWeek,listWeek'
+        },
+        events: tasks.map(task => ({
+            id: task.id,
+            title: task.name || task.title, // Support for both `name` and `title`
+            start: task.start,
+            end: task.end,
+            allDay: false
+        })),
+        eventClick: function(info) {
+            showTaskDetails(info.event);
+        }
+    });
 
-  calendar.render();
+    calendar.render();
+
+    // Re-attach the Unconnect button event listener after calendar is initialized
+    document.getElementById('unconnectButton').addEventListener('click', unconnectUser);
 }
+
 
 
 // Function to handle connecting to another user
@@ -313,6 +317,29 @@ function deleteTaskFromModal() {
   closeModal();
 }
 
+function unconnectUser() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const allUsers = JSON.parse(localStorage.getItem('allUsers'));
+    const connectUsername = document.getElementById('connectUsername').value.trim();
+
+    if (connectUsername && currentUser.connections.includes(connectUsername)) {
+        // Remove the user from the connections list
+        currentUser.connections = currentUser.connections.filter(username => username !== connectUsername);
+        allUsers[currentUser.username].connections = allUsers[currentUser.username].connections.filter(username => username !== connectUsername);
+        
+        // Update localStorage
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        localStorage.setItem('allUsers', JSON.stringify(allUsers));
+
+        // Re-initialize the calendar to remove the disconnected user's tasks
+        initializeCalendar(); // Re-initialize to only show current user's tasks
+
+        alert(`Disconnected from ${connectUsername}. Their schedule is now hidden.`);
+    } else {
+        alert('Invalid username or you are not connected to this user.');
+    }
+}
+
 // Function to import timetable
 async function importTimetable(event) {
   event.preventDefault();
@@ -372,6 +399,8 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
       connectToUser();
   });
+
+  document.getElementById('unconnectButton').addEventListener('click', unconnectUser);
 
   // Dropdown functionality (if applicable)
   const dropdownButton = document.querySelector('.dropdown-button');
