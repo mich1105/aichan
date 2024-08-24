@@ -34,6 +34,36 @@ const dummyUsers = {
   }
 };
 
+const dummyUser = {
+    "UserA": {
+        username: "UserA",
+        tasks: [
+            { id: "task-1", title: "Task 1", start: "2024-08-25T08:00:00", end: "2024-08-25T10:00:00" },
+            { id: "task-2", title: "Task 2", start: "2024-08-25T12:00:00", end: "2024-08-25T13:00:00" }
+        ],
+        connections: []
+    },
+    "UserB": {
+        username: "UserB",
+        tasks: [
+            { id: "task-3", title: "Task 3", start: "2024-08-25T07:00:00", end: "2024-08-25T09:00:00" },
+            { id: "task-4", title: "Task 4", start: "2024-08-25T11:00:00", end: "2024-08-25T12:00:00" }
+        ],
+        connections: []
+    },
+    "UserC": {
+        username: "UserC",
+        tasks: [
+            { id: "task-5", title: "Task 5", start: "2024-08-25T09:30:00", end: "2024-08-25T11:00:00" },
+            { id: "task-6", title: "Task 6", start: "2024-08-25T13:00:00", end: "2024-08-25T14:00:00" }
+        ],
+        connections: []
+    }
+};
+
+// Store the dummy users in localStorage
+localStorage.setItem('allUsers', JSON.stringify(dummyUser));
+
 // Store the dummy users in localStorage
 localStorage.setItem('allUsers', JSON.stringify(dummyUsers));
 
@@ -44,49 +74,45 @@ let calendar; // Declare the calendar variable outside the function so it can be
 
 // Function to initialize the calendar with tasks from UserA or other users
 function initializeCalendar() {
-    const calendarEl = document.getElementById('calendar');
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  const calendarEl = document.getElementById('calendar');
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    // Ensure each task has a unique ID
-    tasks = tasks.map(task => {
-        if (!task.id) {
-            task.id = 'task-' + Date.now() + Math.random().toString(36).substring(7);
-        }
-        return task;
-    });
+  // Ensure each task has a unique ID
+  tasks = tasks.map(task => {
+      if (!task.id) {
+          task.id = 'task-' + Date.now() + Math.random().toString(36).substring(7);
+      }
+      return task;
+  });
 
-    localStorage.setItem('tasks', JSON.stringify(tasks)); // Save back to localStorage
+  localStorage.setItem('tasks', JSON.stringify(tasks)); // Save back to localStorage
 
-    if (calendar) {
-        calendar.destroy();
-    }
+  if (calendar) {
+      calendar.destroy();
+  }
 
-    // Initialize the calendar with tasks
-    calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'timeGridWeek',
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'timeGridDay,timeGridWeek,listWeek'
-        },
-        events: tasks.map(task => ({
-            id: task.id,
-            title: task.name || task.title, // Support for both `name` and `title`
-            start: task.start,
-            end: task.end,
-            allDay: false
-        })),
-        eventClick: function(info) {
-            showTaskDetails(info.event);
-        }
-    });
+  // Initialize the calendar with tasks
+  calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'timeGridWeek',
+      headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'timeGridDay,timeGridWeek,listWeek'
+      },
+      events: tasks.map(task => ({
+          id: task.id,
+          title: task.name || task.title, // Support for both `name` and `title`
+          start: task.start,
+          end: task.end,
+          allDay: false
+      })),
+      eventClick: function(info) {
+          showTaskDetails(info.event);
+      }
+  });
 
-    calendar.render();
-
-    // Re-attach the Unconnect button event listener after calendar is initialized
-    document.getElementById('unconnectButton').addEventListener('click', unconnectUser);
+  calendar.render();
 }
-
 
 
 // Function to handle connecting to another user
@@ -111,42 +137,66 @@ function connectToUser() {
   }
 }
 
-// Function to find common free time between connected users
 function findCommonFreeTime() {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  const connections = currentUser.connections || [];
-  const allUsers = JSON.parse(localStorage.getItem('allUsers')) || {};
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const connections = currentUser.connections || [];
+    const allUsers = JSON.parse(localStorage.getItem('allUsers')) || {};
 
-  let combinedTasks = JSON.parse(localStorage.getItem('tasks')) || currentUser.tasks || [];
+    let combinedTasks = JSON.parse(localStorage.getItem('tasks')) || currentUser.tasks || [];
 
-  // Add the tasks of connected users
-  connections.forEach(connection => {
-      const userTasks = allUsers[connection].tasks || [];
-      combinedTasks = combinedTasks.concat(userTasks);
-  });
+    // Add the tasks of connected users
+    connections.forEach(connection => {
+        const userTasks = allUsers[connection].tasks || [];
+        combinedTasks = combinedTasks.concat(userTasks);
+    });
 
-  combinedTasks.sort((a, b) => new Date(a.start) - new Date(b.start));
+    combinedTasks.sort((a, b) => new Date(a.start) - new Date(b.start));
 
-  const freeTimes = calculateFreeTime(combinedTasks);
-  return freeTimes;
+    const freeTimes = calculateFreeTime(combinedTasks);
+    return freeTimes;
 }
 
+function findCommonFreeTimeInRange(start, end, preference) {
+    const freeTimes = findCommonFreeTime(); // Retrieve common free times between connected users
+
+    // Filter free times within the provided start, end, and preference
+    return freeTimes.filter(time => {
+        const startTime = new Date(time.start);
+        const endTime = new Date(time.end);
+
+        // Apply preference filtering
+        switch (preference) {
+            case 'morning':
+                return startTime.getHours() >= 5 && endTime.getHours() <= 11;
+            case 'day':
+                return startTime.getHours() >= 11 && endTime.getHours() <= 15;
+            case 'afternoon':
+                return startTime.getHours() >= 15 && endTime.getHours() <= 18;
+            case 'night':
+                return startTime.getHours() >= 18 && endTime.getHours() <= 23;
+            default:
+                return true;
+        }
+    }).filter(time => new Date(time.start) >= start && new Date(time.end) <= end);
+}
+
+
 function calculateFreeTime(tasks) {
-  let freeTimes = [];
-  let previousEnd = null;
+    let freeTimes = [];
+    let previousEnd = new Date(tasks[0].start); // Assuming tasks are sorted by start time
 
-  tasks.forEach((task, index) => {
-      const taskStart = new Date(task.start);
-      if (previousEnd && taskStart > previousEnd) {
-          freeTimes.push({
-              start: previousEnd.toISOString(),
-              end: taskStart.toISOString()
-          });
-      }
-      previousEnd = new Date(task.end);
-  });
+    tasks.forEach((task) => {
+        const taskStart = new Date(task.start);
+        if (previousEnd < taskStart) {
+            freeTimes.push({
+                start: previousEnd.toISOString(),
+                end: taskStart.toISOString()
+            });
+        }
+        previousEnd = new Date(task.end);
+    });
 
-  return freeTimes;
+    return freeTimes;
 }
 
 function displayFreeTimes(freeTimes) {
@@ -317,29 +367,6 @@ function deleteTaskFromModal() {
   closeModal();
 }
 
-function unconnectUser() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const allUsers = JSON.parse(localStorage.getItem('allUsers'));
-    const connectUsername = document.getElementById('connectUsername').value.trim();
-
-    if (connectUsername && currentUser.connections.includes(connectUsername)) {
-        // Remove the user from the connections list
-        currentUser.connections = currentUser.connections.filter(username => username !== connectUsername);
-        allUsers[currentUser.username].connections = allUsers[currentUser.username].connections.filter(username => username !== connectUsername);
-        
-        // Update localStorage
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        localStorage.setItem('allUsers', JSON.stringify(allUsers));
-
-        // Re-initialize the calendar to remove the disconnected user's tasks
-        initializeCalendar(); // Re-initialize to only show current user's tasks
-
-        alert(`Disconnected from ${connectUsername}. Their schedule is now hidden.`);
-    } else {
-        alert('Invalid username or you are not connected to this user.');
-    }
-}
-
 // Function to import timetable
 async function importTimetable(event) {
   event.preventDefault();
@@ -400,8 +427,6 @@ document.addEventListener('DOMContentLoaded', () => {
       connectToUser();
   });
 
-  document.getElementById('unconnectButton').addEventListener('click', unconnectUser);
-
   // Dropdown functionality (if applicable)
   const dropdownButton = document.querySelector('.dropdown-button');
   const dropdownContent = document.querySelector('.dropdown-content');
@@ -416,3 +441,137 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   });
 });
+
+document.getElementById('createActivityForm').addEventListener('submit', createActivityTogether);
+function createActivityTogether(event) {
+    event.preventDefault();
+
+    const activityTitle = document.getElementById('activityTitle').value;
+    const activityStart = new Date(document.getElementById('activityStart').value);
+    const activityEnd = new Date(document.getElementById('activityEnd').value);
+    const activityDuration = parseFloat(document.getElementById('activityDuration').value);
+    const selectedUsers = Array.from(document.getElementById('activityUsers').selectedOptions).map(option => option.value);
+    const timePreference = document.getElementById('timePreference').value;
+
+    if (activityTitle.trim() === '' || isNaN(activityDuration) || selectedUsers.length === 0) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    const availableSlots = findCommonFreeTimeInRange(activityStart, activityEnd, timePreference);
+
+    const suggestedSchedulesList = document.getElementById('suggestedSchedulesList');
+    suggestedSchedulesList.innerHTML = ''; // Clear previous suggestions
+
+    if (availableSlots.length === 0) {
+        suggestedSchedulesList.innerHTML = '<li>No common free time available within the selected period and time preference.</li>';
+    } else {
+        // Limit to the first 4 available slots
+        availableSlots.slice(0, 4).forEach((slot, index) => {
+            const slotDuration = (new Date(slot.end) - new Date(slot.start)) / (1000 * 60 * 60);
+            if (slotDuration >= activityDuration) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Option ${index + 1}: From ${new Date(slot.start).toLocaleString()} to ${new Date(slot.end).toLocaleString()}`;
+                
+                // Add a button to add this slot to the timetable
+                const addButton = document.createElement('button');
+                addButton.textContent = 'Add to Timetable';
+                addButton.onclick = function() {
+                    addSuggestedActivityToCalendar({
+                        start: slot.start,
+                        end: new Date(new Date(slot.start).getTime() + activityDuration * 60 * 60 * 1000).toISOString()
+                    }, activityTitle, selectedUsers);
+                };
+                listItem.appendChild(addButton);
+
+                suggestedSchedulesList.appendChild(listItem);
+            }
+        });
+    }
+}
+
+function findFreeTimeSlotsForUsers(start, end, duration, users, timePreference) {
+    const allUsers = JSON.parse(localStorage.getItem('allUsers')) || {};
+    let combinedTasks = [];
+
+    users.forEach(user => {
+        const userTasks = allUsers[user].tasks || [];
+        combinedTasks = combinedTasks.concat(userTasks);
+    });
+
+    combinedTasks.sort((a, b) => new Date(a.start) - new Date(b.start));
+
+    let freeTimes = [];
+    let previousEnd = start;
+
+    combinedTasks.forEach(task => {
+        const taskStart = new Date(task.start);
+        if (previousEnd < taskStart) {
+            let availableDuration = (taskStart - previousEnd) / (1000 * 60 * 60); // in hours
+            if (availableDuration >= duration) {
+                let slotEnd = new Date(previousEnd.getTime() + duration * 60 * 60 * 1000);
+                freeTimes.push({ start: previousEnd.toISOString(), end: slotEnd.toISOString() });
+            }
+        }
+        previousEnd = new Date(task.end);
+    });
+
+    if (previousEnd < end) {
+        let availableDuration = (end - previousEnd) / (1000 * 60 * 60); // in hours
+        if (availableDuration >= duration) {
+            let slotEnd = new Date(previousEnd.getTime() + duration * 60 * 60 * 1000);
+            freeTimes.push({ start: previousEnd.toISOString(), end: slotEnd.toISOString() });
+        }
+    }
+
+    // Filter free times based on time preference
+    const filteredFreeTimes = freeTimes.filter(slot => {
+        const slotStart = new Date(slot.start).getHours();
+        switch (timePreference) {
+            case 'morning':
+                return slotStart >= 6 && slotStart < 12;
+            case 'day':
+                return slotStart >= 12 && slotStart < 18;
+            case 'evening':
+                return slotStart >= 18 && slotStart < 21;
+            case 'night':
+                return slotStart >= 21 && slotStart < 24;
+            default:
+                return false;
+        }
+    });
+
+    // Return up to 4 options or whatever is available
+    return filteredFreeTimes.slice(0, 4);
+}
+
+function addSuggestedActivityToCalendar(freeSlot, title, users) {
+    // Retrieve the existing tasks from localStorage
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    
+    // Add the new event to the tasks array
+    tasks.push({
+        id: 'task-' + Date.now(),
+        title: title,
+        start: freeSlot.start,
+        end: freeSlot.end,
+        allDay: false
+    });
+
+    // Save the updated tasks back to localStorage
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    // Re-render the calendar with the new and existing events
+    initializeCalendar();
+}
+
+freeTimeSlots.forEach(slot => {
+    calendar.addEvent({
+        title: `${title} (Suggested)`,
+        start: slot.start,
+        end: slot.end,
+        backgroundColor: '#ff6600',
+        borderColor: '#ff6600'
+    });
+});
+
