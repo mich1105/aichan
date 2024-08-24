@@ -125,10 +125,6 @@ window.onclick = function(event) {
       }
   }
 }
-
-document.querySelectorAll('.dropdown-content input').forEach(function(checkbox) {
-  checkbox.addEventListener('change', updateSelectedOptions);
-});
 });
 
 // Function to add a task
