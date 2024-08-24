@@ -257,7 +257,7 @@ button:hover {
   max-height: 300px; /* Scale the height by 80% */
 }
 
-.profile-container {
+.profile-container2 {
   display: flex;
   gap: 10px;
   position: relative; /* Ensure the profile pictures are positioned relative to their container */
@@ -427,11 +427,11 @@ input[type="url"] {
   height: auto;
 }
 
-.profile-container {
+/* .profile-container2 {
   margin-top: 20px;
   display: flex;
   gap: 10px;
-}
+} */
 
 .profile-photo {
   width: 50px;
