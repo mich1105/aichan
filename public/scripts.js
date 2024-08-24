@@ -1,20 +1,20 @@
 // Function to add a task
-function addTask() {
-  const taskInput = document.getElementById('taskInput');
-  const taskValue = taskInput.value;
+// function addTask() {
+//   const taskInput = document.getElementById('taskInput');
+//   const taskValue = taskInput.value;
 
-  if (taskValue.trim() === '') {
-      return;
-  }
+//   if (taskValue.trim() === '') {
+//       return;
+//   }
 
-  // Save task to localStorage
-  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  tasks.push(taskValue);
-  localStorage.setItem('tasks', JSON.stringify(tasks));
+//   // Save task to localStorage
+//   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+//   tasks.push(taskValue);
+//   localStorage.setItem('tasks', JSON.stringify(tasks));
 
-  // Render tasks
-  renderTasks();
-}
+//   // Render tasks
+//   renderTasks();
+// }
 
 // Function to add a schedule
 function addSchedule() {
@@ -52,29 +52,7 @@ function renderSchedules() {
 }
 
 // Function to initialize the calendar with tasks
-function initializeCalendar() {
-  var calendarEl = document.getElementById('calendar');
-  var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
-      headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'timeGridDay,timeGridWeek,listWeek'
-      },
-      events: tasks.map(task => ({
-          title: task.name,
-          start: task.start,
-          end: task.end
-      })),
-      eventClick: function(info) {
-          showTaskDetails(info.event);
-      }
-  });
-
-  calendar.render();
-}
 
 function showTaskDetails(event) {
   // Populate modal with event details
@@ -139,15 +117,20 @@ function addTask(event) {
   const startDateTime = new Date(deadlineValue);
   const endDateTime = new Date(startDateTime.getTime() + durationValue * 60 * 60 * 1000);
 
+  // Generate a unique ID for the task
+  const taskId = 'task-' + Date.now();
+
   // Save task to localStorage
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-  tasks.push({ name: taskValue, start: deadlineValue, end: endDateTime.toISOString() });
+  tasks.push({ id: taskId, name: taskValue, start: deadlineValue, end: endDateTime.toISOString() });
   localStorage.setItem('tasks', JSON.stringify(tasks));
 
-  // Render tasks and update calendar
+  // Re-render tasks and update calendar
   renderTasks();
   initializeCalendar();
 }
+
+
 
 
 
@@ -168,26 +151,51 @@ function deleteTask(index) {
 
 
 // Function to initialize the calendar with tasks
+let calendar; // Declare the calendar variable outside the function so it can be accessed globally
+
 function initializeCalendar() {
-  var calendarEl = document.getElementById('calendar');
-  var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    var calendarEl = document.getElementById('calendar');
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
-      headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'timeGridDay,timeGridWeek,listWeek'
-      },
-      events: tasks.map(task => ({
-          title: task.name,
-          start: task.start,
-          end: task.end
-      }))
-  });
+    // Migrate tasks to ensure each has a unique ID
+    tasks = tasks.map(task => {
+        if (!task.id) {
+            task.id = 'task-' + Date.now() + Math.random().toString(36).substring(7);
+        }
+        return task;
+    });
 
-  calendar.render();
+    localStorage.setItem('tasks', JSON.stringify(tasks)); // Save the updated tasks back to localStorage
+
+    // Destroy existing calendar instance if it exists
+    if (calendar) {
+        calendar.destroy();
+    }
+
+    // Initialize a new calendar instance
+    calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'timeGridDay,timeGridWeek,listWeek'
+        },
+        events: tasks.map(task => ({
+            id: task.id,
+            title: task.name,
+            start: task.start,
+            end: task.end,
+            allDay: false
+        })),
+        eventClick: function(info) {
+            showTaskDetails(info.event);
+        }
+    });
+
+    calendar.render();
 }
+
+
 
 // document.addEventListener('DOMContentLoaded', () => {
 //   renderTasks();
@@ -238,58 +246,18 @@ function addTask(event) {
   tasks.push({ id: taskId, name: taskValue, start: deadlineValue, end: endDateTime.toISOString() });
   localStorage.setItem('tasks', JSON.stringify(tasks));
 
-  // Render tasks and update calendar
-  renderTasks();
-  initializeCalendar();
+  // Re-render tasks and update calendar
+  initializeCalendar(); // This should now correctly refresh the calendar without needing a manual refresh
 }
 
-
-
-function deleteTask(index) {
-  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-  // Remove the task at the given index
-  tasks.splice(index, 1);
-
-  // Save the updated task list to localStorage
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-
-  // Re-render the task list and calendar
-  renderTasks();
-  initializeCalendar();
-}
-
-// Function to initialize the calendar with tasks
-function initializeCalendar() {
-  var calendarEl = document.getElementById('calendar');
-  var tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
-      headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'timeGridDay,timeGridWeek,listWeek'
-      },
-      events: tasks.map(task => ({
-          title: task.name,
-          start: task.start,
-          end: task.end
-      })),
-      eventClick: function(info) {
-          showTaskDetails(info.event);
-      }
-  });
-
-  calendar.render();
-}
 
 let currentEventId = null;
 
 function showTaskDetails(event) {
     // Store the current event ID for deletion
-    currentEventId = event.id;
-    
+    currentEventId = event.id;  // Ensure this captures the correct ID
+    console.log("Current Event ID:", currentEventId);
+
     // Populate modal with event details
     document.getElementById('modalTaskName').textContent = event.title;
     document.getElementById('modalTaskStart').textContent = new Date(event.start).toLocaleString();
@@ -303,22 +271,25 @@ function showTaskDetails(event) {
 }
 
 function deleteTaskFromModal() {
-    // Get the tasks from localStorage
-    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  console.log("Delete button clicked");
 
-    // Find and remove the task with the currentEventId
-    tasks = tasks.filter(task => task.id !== currentEventId);
+  // Get the tasks from localStorage
+  let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  console.log("Current tasks:", tasks);
 
-    // Update localStorage
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+  // Find and remove the task with the currentEventId
+  tasks = tasks.filter(task => task.id !== currentEventId);
+  console.log("Tasks after deletion:", tasks);
 
-    // Re-render the calendar
-    initializeCalendar();
+  // Update localStorage
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 
-    // Close the modal
-    closeModal();
+  // Re-render the calendar
+  initializeCalendar();
+
+  // Close the modal
+  closeModal();
 }
-
 
 function closeModal() {
     // Hide the modal

@@ -1,0 +1,275 @@
+{
+    "Alice": {
+        "activities": [
+            {
+                "activity_name": "Math Homework",
+                "start_time": "2024-08-19 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Math Homework",
+                "start_time": "2024-08-20 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Math Homework",
+                "start_time": "2024-08-21 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Math Homework",
+                "start_time": "2024-08-22 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Math Homework",
+                "start_time": "2024-08-23 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Math Homework",
+                "start_time": "2024-08-24 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Math Homework",
+                "start_time": "2024-08-25 17:47:40",
+                "duration": "2 hours"
+            }
+        ]
+    },
+    "Bob": {
+        "activities": [
+            {
+                "activity_name": "Project Meeting",
+                "start_time": "2024-08-19 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Project Meeting",
+                "start_time": "2024-08-20 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Project Meeting",
+                "start_time": "2024-08-21 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Project Meeting",
+                "start_time": "2024-08-22 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Project Meeting",
+                "start_time": "2024-08-23 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Project Meeting",
+                "start_time": "2024-08-24 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Project Meeting",
+                "start_time": "2024-08-25 17:47:40",
+                "duration": "1 hours"
+            }
+        ]
+    },
+    "Charlie": {
+        "activities": [
+            {
+                "activity_name": "Doctor Appointment",
+                "start_time": "2024-08-19 17:47:40",
+                "duration": "1.5 hours"
+            },
+            {
+                "activity_name": "Doctor Appointment",
+                "start_time": "2024-08-20 17:47:40",
+                "duration": "1.5 hours"
+            },
+            {
+                "activity_name": "Doctor Appointment",
+                "start_time": "2024-08-21 17:47:40",
+                "duration": "1.5 hours"
+            },
+            {
+                "activity_name": "Doctor Appointment",
+                "start_time": "2024-08-22 17:47:40",
+                "duration": "1.5 hours"
+            },
+            {
+                "activity_name": "Doctor Appointment",
+                "start_time": "2024-08-23 17:47:40",
+                "duration": "1.5 hours"
+            },
+            {
+                "activity_name": "Doctor Appointment",
+                "start_time": "2024-08-24 17:47:40",
+                "duration": "1.5 hours"
+            },
+            {
+                "activity_name": "Doctor Appointment",
+                "start_time": "2024-08-25 17:47:40",
+                "duration": "1.5 hours"
+            }
+        ]
+    },
+    "David": {
+        "activities": [
+            {
+                "activity_name": "Gym Session",
+                "start_time": "2024-08-19 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Gym Session",
+                "start_time": "2024-08-20 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Gym Session",
+                "start_time": "2024-08-21 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Gym Session",
+                "start_time": "2024-08-22 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Gym Session",
+                "start_time": "2024-08-23 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Gym Session",
+                "start_time": "2024-08-24 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Gym Session",
+                "start_time": "2024-08-25 17:47:40",
+                "duration": "1 hours"
+            }
+        ]
+    },
+    "Eve": {
+        "activities": [
+            {
+                "activity_name": "English Essay",
+                "start_time": "2024-08-19 17:47:40",
+                "duration": "3 hours"
+            },
+            {
+                "activity_name": "English Essay",
+                "start_time": "2024-08-20 17:47:40",
+                "duration": "3 hours"
+            },
+            {
+                "activity_name": "English Essay",
+                "start_time": "2024-08-21 17:47:40",
+                "duration": "3 hours"
+            },
+            {
+                "activity_name": "English Essay",
+                "start_time": "2024-08-22 17:47:40",
+                "duration": "3 hours"
+            },
+            {
+                "activity_name": "English Essay",
+                "start_time": "2024-08-23 17:47:40",
+                "duration": "3 hours"
+            },
+            {
+                "activity_name": "English Essay",
+                "start_time": "2024-08-24 17:47:40",
+                "duration": "3 hours"
+            },
+            {
+                "activity_name": "English Essay",
+                "start_time": "2024-08-25 17:47:40",
+                "duration": "3 hours"
+            }
+        ]
+    },
+    "Frank": {
+        "activities": [
+            {
+                "activity_name": "Team Presentation",
+                "start_time": "2024-08-19 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Team Presentation",
+                "start_time": "2024-08-20 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Team Presentation",
+                "start_time": "2024-08-21 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Team Presentation",
+                "start_time": "2024-08-22 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Team Presentation",
+                "start_time": "2024-08-23 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Team Presentation",
+                "start_time": "2024-08-24 17:47:40",
+                "duration": "2 hours"
+            },
+            {
+                "activity_name": "Team Presentation",
+                "start_time": "2024-08-25 17:47:40",
+                "duration": "2 hours"
+            }
+        ]
+    },
+    "Grace": {
+        "activities": [
+            {
+                "activity_name": "Grocery Shopping",
+                "start_time": "2024-08-19 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Grocery Shopping",
+                "start_time": "2024-08-20 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Grocery Shopping",
+                "start_time": "2024-08-21 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Grocery Shopping",
+                "start_time": "2024-08-22 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Grocery Shopping",
+                "start_time": "2024-08-23 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Grocery Shopping",
+                "start_time": "2024-08-24 17:47:40",
+                "duration": "1 hours"
+            },
+            {
+                "activity_name": "Grocery Shopping",
+                "start_time": "2024-08-25 17:47:40",
+                "duration": "1 hours"
+            }
+        ]
+    }
+}
