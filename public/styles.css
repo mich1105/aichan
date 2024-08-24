@@ -395,3 +395,247 @@ input[type="url"] {
 #createActivitySection button {
   margin-top: 10px;
 }
+
+/* Container for the entire top section */
+.top-section {
+  display: flex;
+  justify-content: center;
+  position: relative; /* Allows the user profile to be positioned absolutely */
+  margin-bottom: 20px;
+}
+
+/* Centered Leaderboard */
+.leaderboard-container {
+  max-width: 300px;
+  margin: 0 auto; /* Ensure the leaderboard is centered */
+  text-align: center;
+  position: relative;
+}
+
+/* User Profile Positioned at the Top Right */
+.profile-container {
+  position: absolute;
+  top: -30px;
+  right: 10px;
+  background-color: #ffffff; /* Pure white background for a cleaner look */
+  padding: 15px; /* Increased padding for better spacing */
+  border: 2px solid #ccc;
+  border-radius: 12px; /* Slightly more rounded corners */
+  width: auto;
+  text-align: left;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+/* First Line: Username and Profile Picture */
+.profile-container .profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Increased spacing for clarity */
+}
+
+.profile-container .profile-header img {
+  width: 32px; /* Slightly larger profile picture */
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 10px; /* More space between the name and the image */
+  border: 2px solid #ddd; /* Border around the profile picture for emphasis */
+}
+
+/* Second Line: Streak */
+.profile-container .streaks {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px; /* Increased spacing for clarity */
+}
+
+.profile-container .streaks img {
+  width: 24px; /* Slightly larger streak icon */
+  height: 24px;
+  margin-right: 8px; /* More space between the icon and text */
+}
+
+/* Third Line: Badges */
+.profile-container .badges {
+  display: flex;
+  gap: 10px; /* Increased gap between badges */
+  justify-content: center; /* Center the badges horizontally */
+}
+
+.profile-container .badge {
+  width: 32px; /* Slightly larger badges */
+  height: 32px;
+  background-color: #f0f0f0; /* Lighter background for badges */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px; /* Larger text inside badges */
+  font-weight: bold;
+  color: #555;
+  border: 1px solid #ccc;
+  position: relative;
+  cursor: pointer; /* Make badges clickable */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+}
+
+.profile-container .badge:hover {
+  background-color: #e0e0e0; /* Slightly darker on hover */
+  transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Tooltip Styling */
+.profile-container .badge::after {
+  content: attr(data-tooltip); /* Use the data-tooltip attribute for the text */
+  position: absolute;
+  bottom: 120%; /* Position above the badge */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  font-size: 12px;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 1000; /* Ensure tooltip appears above other elements */
+}
+
+.profile-container .badge:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+/* Podium Container */
+.podium {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 15px;
+}
+
+/* Individual Podium Step */
+.podium-step {
+  text-align: center;
+  margin: 0 8px;
+  position: relative;
+  width: 70px;
+  border-radius: 10px 10px 0 0;
+  background-color: #f1f1f1;
+  padding: 8px;
+}
+
+/* Podium Heights */
+.first {
+  height: 100px;
+  order: 2;
+}
+
+.second {
+  height: 85px;
+  order: 3;
+}
+
+.third {
+  height: 70px;
+  order: 1;
+}
+
+/* Rank Styling */
+.podium-step .rank {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffeb3b;
+  padding: 5px 8px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.podium-step.second .rank {
+  background-color: #c0c0c0;
+}
+
+.podium-step.third .rank {
+  background-color: #cd7f32;
+}
+
+/* Name and Score Styling */
+.podium-step .name {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.podium-step .score {
+  font-size: 12px;
+  color: #777;
+}
+
+/* Leaderboard Container */
+.leaderboard {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  max-width: 160px;
+  margin: 0 auto;
+}
+
+/* Title aligned to the left */
+.leaderboard h2 {
+  text-align: left; /* Aligns the title to the left */
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333;
+  margin-left: 10px; /* Add left margin for spacing */
+}
+
+/* Individual Leaderboard Item */
+.leaderboard-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.leaderboard-item:last-child {
+  border-bottom: none;
+}
+
+/* User Name and Rank */
+.leaderboard-rank {
+  font-weight: bold;
+  color: #4caf50;
+  font-size: 10px;
+  margin-right: 5px;
+}
+
+.leaderboard-user {
+  font-weight: bold;
+  color: #333;
+  flex-grow: 1;
+  font-size: 10px;
+}
+
+/* User Score */
+.leaderboard-score {
+  font-weight: bold;
+  color: #555;
+  font-size: 10px;
+}
+
+/* Hover Effect */
+.leaderboard-item:hover {
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease;
+}
