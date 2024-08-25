@@ -157,29 +157,11 @@
             <input type="number" id="activityDuration" name="activityDuration" min="1" required><br><br>
         
             <label for="activityUsers">Invite Users:</label>
-            <div class="checkbox-container">
-                <div id="activityUsers" class="invite-users-checkboxes">
-                    <label>
-                        <input type="checkbox" name="activityUsers" value="aiko"> aiko
-                    </label><br>
-                    <label>
-                        <input type="checkbox" name="activityUsers" value="jotham"> jotham
-                    </label><br>
-                    <label>
-                        <input type="checkbox" name="activityUsers" value="dylan"> dylan
-                    </label><br>
-                    <label>
-                        <input type="checkbox" name="activityUsers" value="michu"> michu
-                    </label><br>
-                    <label>
-                        <input type="checkbox" name="activityUsers" value="elson"> elson
-                    </label><br>
-                    <label>
-                        <input type="checkbox" name="activityUsers" value="hisyam"> hisyam
-                    </label><br>
-                </div>
-            </div><br><br>
-
+            <div id="activityUsers" class="invite-users-checkboxes">
+                <label><input type="checkbox" name="activityUsers" value="aiko"> aiko</label><br>
+                <label><input type="checkbox" name="activityUsers" value="jotham"> jotham</label><br>
+                <label><input type="checkbox" name="activityUsers" value="dylan"> dylan</label><br>
+            </div><br>
         
             <label for="timePreference">Time Preference:</label>
             <select id="timePreference" name="timePreference" required>
@@ -191,6 +173,9 @@
         
             <button type="submit">Create Activity</button>
         </form>
+        
+        <ul id="suggestedSchedulesList"></ul>
+        
         
 
     <div id="taskDetailsModal" class="modal">

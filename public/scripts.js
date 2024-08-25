@@ -418,42 +418,52 @@ const dummyUsers = {
   
   document.getElementById('createActivityForm').addEventListener('submit', createActivityTogether);
   function createActivityTogether(event) {
-      event.preventDefault();
-      const activityTitle = document.getElementById('activityTitle').value;
-      const activityStart = new Date(document.getElementById('activityStart').value);
-      const activityEnd = new Date(document.getElementById('activityEnd').value);
-      const activityDuration = parseFloat(document.getElementById('activityDuration').value);
-      const selectedUsers = Array.from(document.getElementById('activityUsers').selectedOptions).map(option => option.value);
-      const timePreference = document.getElementById('timePreference').value;
-      if (activityTitle.trim() === '' || isNaN(activityDuration) || selectedUsers.length === 0) {
-          alert('Please fill in all fields.');
-          return;
-      }
-      const availableSlots = findCommonFreeTimeInRange(activityStart, activityEnd, timePreference);
-      const suggestedSchedulesList = document.getElementById('suggestedSchedulesList');
-      suggestedSchedulesList.innerHTML = '';
-      if (availableSlots.length === 0) {
-          suggestedSchedulesList.innerHTML = '<li>No common free time available within the selected period and time preference.</li>';
-      } else {
-          availableSlots.slice(0, 4).forEach((slot, index) => {
-              const slotDuration = (new Date(slot.end) - new Date(slot.start)) / (1000 * 60 * 60);
-              if (slotDuration >= activityDuration) {
-                  const listItem = document.createElement('li');
-                  listItem.textContent = `Option : ${new Date(slot.start).toLocaleString()}`;
-                  const addButton = document.createElement('button');
-                  addButton.textContent = 'Add to Timetable';
-                  addButton.onclick = function() {
-                      addSuggestedActivityToCalendar({
-                          start: slot.start,
-                          end: new Date(new Date(slot.start).getTime() + activityDuration * 60 * 60 * 1000).toISOString()
-                      }, activityTitle, selectedUsers);
-                  };
-                  listItem.appendChild(addButton);
-                  suggestedSchedulesList.appendChild(listItem);
-              }
-          });
-      }
-  }
+    event.preventDefault(); // Prevent form from submitting the traditional way
+    
+    // Get the input values
+    const activityTitle = document.getElementById('activityTitle').value;
+    const activityStart = new Date(document.getElementById('activityStart').value);
+    const activityEnd = new Date(document.getElementById('activityEnd').value);
+    const activityDuration = parseFloat(document.getElementById('activityDuration').value);
+    const selectedUsers = Array.from(document.getElementById('activityUsers').querySelectorAll('input:checked')).map(input => input.value);
+    const timePreference = document.getElementById('timePreference').value;
+
+    // Validate inputs
+    if (activityTitle.trim() === '' || isNaN(activityDuration) || selectedUsers.length === 0) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    // Find available time slots
+    const availableSlots = findCommonFreeTimeInRange(activityStart, activityEnd, timePreference);
+
+    // Display suggested schedules
+    const suggestedSchedulesList = document.getElementById('suggestedSchedulesList');
+    suggestedSchedulesList.innerHTML = '';
+
+    if (availableSlots.length === 0) {
+        suggestedSchedulesList.innerHTML = '<li>No common free time available within the selected period and time preference.</li>';
+    } else {
+        availableSlots.slice(0, 4).forEach((slot, index) => {
+            const slotDuration = (new Date(slot.end) - new Date(slot.start)) / (1000 * 60 * 60);
+            if (slotDuration >= activityDuration) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Option ${index + 1}: ${new Date(slot.start).toLocaleString()}`;
+                const addButton = document.createElement('button');
+                addButton.textContent = 'Add to Timetable';
+                addButton.onclick = function() {
+                    addSuggestedActivityToCalendar({
+                        start: slot.start,
+                        end: new Date(new Date(slot.start).getTime() + activityDuration * 60 * 60 * 1000).toISOString()
+                    }, activityTitle, selectedUsers);
+                };
+                listItem.appendChild(addButton);
+                suggestedSchedulesList.appendChild(listItem);
+            }
+        });
+    }
+}
+
   
   function findFreeTimeSlotsForUsers(start, end, duration, users, timePreference) {
       const allUsers = JSON.parse(localStorage.getItem('allUsers')) || {};
@@ -501,19 +511,20 @@ const dummyUsers = {
       return filteredFreeTimes.slice(0, 4);
   }
   function addSuggestedActivityToCalendar(freeSlot, title, users) {
-      let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-      tasks.push({
-          id: 'task-' + Date.now(),
-          title: title,
-          start: freeSlot.start,
-          end: freeSlot.end,
-          allDay: false,
-          isJointActivity: true, 
-          participants: users
-      });
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-      initializeCalendar();
-  }
+    let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    tasks.push({
+        id: 'task-' + Date.now(),
+        title: title,
+        start: freeSlot.start,
+        end: freeSlot.end,
+        allDay: false,
+        isJointActivity: true, 
+        participants: users
+    });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+    initializeCalendar(); // Refresh the calendar to display the new activity
+}
+
   freeTimeSlots.forEach(slot => {
       calendar.addEvent({
           title: `${title} (Suggested)`,
