@@ -7,27 +7,30 @@ const dummyUsers = {
         ],
         connections: []
     },
+    "aiko": {
+        username: "aiko",
+        tasks: [
+            { id: "Swimming", title: "Swimming", start: "2024-08-27T07:00:00", end: "2024-08-27T09:00:00" },
+            { id: "Dancing Class", title: "Dance Class", start: "2024-08-31T10:00:00", end: "2024-08-30T13:00:00" },
+            { id: "Painting Workshop", title: "Painting Workshop", start: "2024-08-25T14:00:00", end: "2024-08-25T17:00:00" }
+        ],
+        connections: []
+    },
+    "jotham": {
+        username: "jotham",
+        tasks: [
+            { id: "Football betting", title: "Football betting", start: "2024-08-31T10:00:00", end: "2024-08-31T13:00:00" },
+            { id: "Gym", title: "Gym", start: "2024-08-28T16:00:00", end: "2024-08-28T18:00:00" },
+            { id: "Machine Learning Workshop", title: "Machine Learning Workshop", start: "2024-08-29T18:00:00", end: "2024-08-29T20:00:00" }
+        ],
+        connections: []
+    },
     "dylan": {
         username: "dylan",
         tasks: [
-            { id: "task-3", title: "Task 3", start: "2024-08-31T09:00:00", end: "2024-08-31T10:30:00" },
-            { id: "task-4", title: "Task 4", start: "2024-08-31T13:00:00", end: "2024-08-31T14:00:00" }
-        ],
-        connections: []
-    },
-    "UserC": {
-        username: "jotham",
-        tasks: [
-            { id: "task-5", title: "Task 5", start: "2024-08-30T09:00:00", end: "2024-08-30T10:30:00" },
-            { id: "task-6", title: "Task 6", start: "2024-08-30T13:00:00", end: "2024-08-30T14:00:00" }
-        ],
-        connections: []
-    },
-    "UserD": {
-        username: "aiko",
-        tasks: [
-            { id: "task-7", title: "Task 7", start: "2024-08-23T07:00:00", end: "2024-08-30T09:30:00" },
-            { id: "task-8", title: "Task 8", start: "2024-08-23T11:00:00", end: "2024-08-30T11:30:00" }
+            { id: "Foundation to Data Science, Lecture", title: "Foundation to Data Science, Lecture", start: "2024-08-25T08:00:00", end: "2024-08-25T10:00:00" },
+            { id: "Discrete Mathematics, Tutorial", title: "Discrete Mathematics, Tutorial", start: "2024-08-26T12:00:00", end: "2024-08-26T14:00:00" },
+            { id: "Jumuah Prayer", title: "Jumuah Prayer", start: "2024-08-30T13:00:00", end: "2024-08-30T14:00:00" }
         ],
         connections: []
     }
@@ -181,6 +184,8 @@ const dummyUsers = {
     });
     calendar.render();
   }
+
+  
   
   function getConnectedUserTasks() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -317,20 +322,33 @@ const dummyUsers = {
   }
   
   function disconnectUser() {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      const allUsers = JSON.parse(localStorage.getItem('allUsers'));
-      const connectUsername = document.getElementById('connectUsername').value.trim();
-      if (connectUsername && currentUser.connections.includes(connectUsername)) {
-          currentUser.connections = currentUser.connections.filter(username => username !== connectUsername);
-          allUsers[currentUser.username].connections = allUsers[currentUser.username].connections.filter(username => username !== connectUsername);
-          localStorage.setItem('currentUser', JSON.stringify(currentUser));
-          localStorage.setItem('allUsers', JSON.stringify(allUsers));
-          initializeCalendar(); 
-          alert(`Disconnected from ${connectUsername}. Their schedule is now hidden.`);
-      } else {
-          alert('Invalid username or you are not connected to this user.');
-      }
-  }
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const allUsers = JSON.parse(localStorage.getItem('allUsers'));
+    const connectUsername = document.getElementById('connectUsername').value.trim();
+
+    if (connectUsername && currentUser.connections.includes(connectUsername)) {
+        // Remove the connected user from the current user's connections
+        currentUser.connections = currentUser.connections.filter(username => username !== connectUsername);
+        allUsers[currentUser.username].connections = allUsers[currentUser.username].connections.filter(username => username !== connectUsername);
+
+        // Remove the tasks from the disconnected user
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks = tasks.filter(task => !(
+            task.fromConnectedUser && allUsers[connectUsername].tasks.some(userTask => userTask.id === task.id)
+        ));
+
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        localStorage.setItem('allUsers', JSON.stringify(allUsers));
+        localStorage.setItem('tasks', JSON.stringify(tasks)); // Save the updated tasks
+
+        // Re-initialize the calendar to reflect the changes
+        initializeCalendar();
+
+        alert(`Disconnected from ${connectUsername}. Their schedule is now hidden.`);
+    } else {
+        alert('Invalid username or you are not connected to this user.');
+    }
+}
   
   async function importTimetable(event) {
       event.preventDefault();

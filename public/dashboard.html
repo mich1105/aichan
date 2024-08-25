@@ -22,13 +22,13 @@
 </head>
 <body>
     <header>
-        <h1>TO-DO LIST & SCHEDULE</h1>
+        <h1>ZENITH</h1>
     </header>
 
     <div class = "art"></div>
     
     <main>        
-        <h2>Leaderboard</h2>
+        <h2>Mingle Maven 🤘🏻🤘🏻</h2>
         <section id="leaderboardSection">
             <section class="top-section">
                 <!-- Left Column: Leaderboard -->
@@ -72,12 +72,12 @@
                         </div>
                         <div class="leaderboard-item">
                             <span class="leaderboard-rank">6.</span>
-                            <span class="leaderboard-user">syncs</span>
+                            <span class="leaderboard-user">elson</span>
                             <span class="leaderboard-score">50 pts</span>
                         </div>
                         <div class="leaderboard-item">
                             <span class="leaderboard-rank">7.</span>
-                            <span class="leaderboard-user">sudata</span>
+                            <span class="leaderboard-user">hisyam</span>
                             <span class="leaderboard-score">45 pts</span>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
 
                 <div class="profile-container">
                     <div class="profile-header">
-                      <img src="profile.jpeg" alt="Profile Picture">
+                      <img src="images/Uwoki.png" alt="Profile Picture">
                       <span>rhatwo</span>
                     </div>
                     
@@ -146,23 +146,41 @@
         <form id="createActivityForm">
             <label for="activityTitle">Activity Title:</label>
             <input type="text" id="activityTitle" name="activityTitle" placeholder="Enter activity title" required><br><br>
-    
+        
             <label for="activityStart">Start Date:</label>
             <input type="datetime-local" id="activityStart" name="activityStart" required><br><br>
-    
+        
             <label for="activityEnd">End Date:</label>
             <input type="datetime-local" id="activityEnd" name="activityEnd" required><br><br>
-    
+        
             <label for="activityDuration">Duration (hours):</label>
             <input type="number" id="activityDuration" name="activityDuration" min="1" required><br><br>
-    
+        
             <label for="activityUsers">Invite Users:</label>
-            <select id="activityUsers" name="activityUsers" multiple required>
-                <option value="UserB">UserB</option>
-                <option value="UserC">UserC</option>
-                <option value="UserD">UserD</option>
-            </select><br><br>
-    
+            <div class="checkbox-container">
+                <div id="activityUsers" class="invite-users-checkboxes">
+                    <label>
+                        <input type="checkbox" name="activityUsers" value="aiko"> aiko
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="activityUsers" value="jotham"> jotham
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="activityUsers" value="dylan"> dylan
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="activityUsers" value="michu"> michu
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="activityUsers" value="elson"> elson
+                    </label><br>
+                    <label>
+                        <input type="checkbox" name="activityUsers" value="hisyam"> hisyam
+                    </label><br>
+                </div>
+            </div><br><br>
+
+        
             <label for="timePreference">Time Preference:</label>
             <select id="timePreference" name="timePreference" required>
                 <option value="morning">Morning (6 AM - 12 PM)</option>
@@ -170,14 +188,10 @@
                 <option value="evening">Evening (6 PM - 9 PM)</option>
                 <option value="night">Night (9 PM - 12 AM)</option>
             </select><br><br>
-    
+        
             <button type="submit">Create Activity</button>
         </form>
-        <section id="suggestedSchedulesSection">
-            <h2>Suggested Schedules</h2>
-            <ul id="suggestedSchedulesList"></ul>
-        </section>
-    </main>
+        
 
     <div id="taskDetailsModal" class="modal">
         <div class="modal-content">
@@ -213,6 +227,10 @@
     </div>
     <div class="container">
         <img class="art1" src="art1.png"alt ="Fixed PNG">
+    </div>
+
+    <div class="container2">
+        <img class="art2" src="art1.png"alt ="Fixed PNG">
     </div>
     
     <div class="character1">

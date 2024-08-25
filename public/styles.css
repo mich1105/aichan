@@ -23,6 +23,8 @@ header {
   z-index: 1000;
   width: 825px;
   margin: 0 auto;
+  position: -webkit-sticky;
+  position: sticky;
 }
 
 h1 {
@@ -382,14 +384,23 @@ input[type="url"] {
   height: auto;
 }
 
+.art2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: auto;
+  transform: rotate(180deg);
+}
+
 .character1 {
   position: fixed;
   bottom: 0;
-  left: 15;
+  left: 0;
 }
 
 .character1 img {
-  width: 90px;
+  width: 200px;
   height: auto;
 }
 
@@ -648,3 +659,21 @@ input[type="url"] {
   background-color: #f1f1f1;
   transition: background-color 0.3s ease;
 }
+
+.checkbox-container {
+  border: 2px solid #ccc;        /* Border around the box */
+  padding: 10px;                 /* Padding inside the box */
+  border-radius: 8px;            /* Rounded corners */
+  background-color: #f9f9f9;     /* Light background color */
+  width: 200px;                  /* Width of the box */
+  max-height: 100px;             /* Maximum height of the box */
+  overflow-y: auto;              /* Enable vertical scrolling */
+}
+
+
+
+.checkbox-container label {
+  display: block;          /* Each label takes the full width */
+  margin-bottom: 5px;      /* Space between checkboxes */
+}
+
