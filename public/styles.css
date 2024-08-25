@@ -661,19 +661,19 @@ input[type="url"] {
 }
 
 .checkbox-container {
-  border: 2px solid #ccc;        /* Border around the box */
-  padding: 10px;                 /* Padding inside the box */
-  border-radius: 8px;            /* Rounded corners */
-  background-color: #f9f9f9;     /* Light background color */
-  width: 200px;                  /* Width of the box */
-  max-height: 100px;             /* Maximum height of the box */
-  overflow-y: auto;              /* Enable vertical scrolling */
+  border: 2px solid #ccc;  
+  padding: 10px;   
+  border-radius: 8px;    
+  background-color: #f9f9f9; 
+  width: 200px; 
+  max-height: 100px; 
+  overflow-y: auto;  
 }
 
 
 
 .checkbox-container label {
-  display: block;          /* Each label takes the full width */
-  margin-bottom: 5px;      /* Space between checkboxes */
+  display: block;     
+  margin-bottom: 5px;  
 }
 
